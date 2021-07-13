@@ -7,6 +7,14 @@ var dataEnvelope = [
     { x: 17.5, y: 385 }
 ];
 
+// Points
+var pt_O = dataEnvelope[0];
+var pt_P = dataEnvelope[1];
+var pt_K = dataEnvelope[2];
+var pt_L = dataEnvelope[3];
+var pt_M = dataEnvelope[4];
+var pt_N = dataEnvelope[5];
+
 var dataResult = [
     { x: 20, y: 400 }, { x: 26, y: 500 },
 ];
@@ -69,8 +77,7 @@ svg
     .text("Weight (kg)");
 
 // Add envelope
-svg
-    .append("path")
+var pathEnvelope = svg.append("path")
     .datum(dataEnvelope)
     .attr("fill", "none")
     .attr("stroke", "black")
@@ -93,14 +100,14 @@ var lineResult = svg.append("line")
 var pointTO = svg.append("circle")
     .attr("cx", x_scale(dataResult[0].x))
     .attr("cy", y_scale(dataResult[0].y))
-    .attr("fill", 'red')
+    .attr("fill", 'black')
     .attr("r", 2.5);
 
 // Add zero fuel point
 var pointZF = svg.append("circle")
     .attr("cx", x_scale(dataResult[1].x))
     .attr("cy", y_scale(dataResult[1].y))
-    .attr("fill", 'red')
+    .attr("fill", 'black')
     .attr("r", 2.5);
 
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- 
@@ -152,6 +159,7 @@ var idLimiterBoxFuel = document.getElementById('limiter-box-fuel');
 var idWarningTextPax = document.getElementById('warning-text-pax');
 var idWarningTextBaggage = document.getElementById('warning-text-baggage');
 var idWarningTextFuel = document.getElementById('warning-text-fuel');
+var idWarningTextEnvelope = document.getElementById('warning-text-envelope');
 
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- 
 // UPDATE FIGURE
@@ -164,7 +172,7 @@ function updateFigure() {
     var pilotWeight = parseFloat(inputPilot.value);
     var passengerWeight = parseFloat(inputPassenger.value);
     var baggageWeight = parseFloat(inputBaggage.value);
-    
+
     // warnings 
     // pax weight > 200kg
     if (pilotWeight + passengerWeight > 200) {
@@ -178,7 +186,7 @@ function updateFigure() {
     }
     // 2 occupants 
     if (passengerWeight > 25) {
-    // fuel > 100l
+        // fuel > 100l
         limiterBoxBaggage.style.display = "block"
         limiterBoxFuel.style.display = "block"
 
@@ -200,7 +208,7 @@ function updateFigure() {
             idWarningBaggage.style.visibility = "hidden"
             idWarningTextBaggage.style.display = "none"
             idIconBaggage.style.visibility = "visible"
-        } 
+        }
     } else {
         idWarningBaggage.style.visibility = "hidden"
         idWarningTextBaggage.style.display = "none"
@@ -268,4 +276,58 @@ function updateFigure() {
         .attr("cx", x_scale(dataResult[1].x))
         .attr("cy", y_scale(dataResult[1].y))
 
+    // Check configuration
+    if (checkConfig(dataResult[1].y, dataResult[1].x) && checkConfig(dataResult[0].y, dataResult[0].x)) {
+        pathEnvelope.attr("stroke", "black")
+        .attr("stroke-width", 1.5)
+        idWarningTextEnvelope.style.display = "none"
+    } else {
+        pathEnvelope.attr("stroke", "red")
+        .attr("stroke-width", 2.0)
+        idWarningTextEnvelope.style.display = "block"
+    }
+
+}
+
+function checkConfig(weight, cg) {
+
+    // check line KL
+    if (weight > pt_K.y) {
+        return false
+    }
+
+    // check line LM
+    if (cg > pt_L.x) {
+        return false
+    }
+
+    // check line NM
+    var a_MN = (pt_M.y - pt_N["y"]) / (pt_M.x - pt_N.x);
+    var b_MN = pt_N.y - pt_N.x * a_MN;
+    if (weight < cg * a_MN + b_MN) {
+        return false
+    }
+
+    // check line NO
+    var a_NO = (pt_N.y - pt_O.y) / (pt_N.x - pt_O.x);
+    var b_NO = pt_O.y - pt_O.x * a_NO;
+    if (weight < cg * a_NO + b_NO) {
+        return false
+    }
+
+    // check line OP
+    var a_OP = (pt_O.y - pt_P.y) / (pt_O.x - pt_P.x);
+    var b_OP = pt_P.y - pt_P.x * a_OP;
+    if (weight > cg * a_OP + b_OP) {
+        return false
+    }
+
+    // check line PK
+    var a_PK = (pt_P.y - pt_K.y) / (pt_P.x - pt_K.x);
+    var b_PK = pt_K.y - pt_K.x * a_PK;
+    if (weight > cg * a_PK + b_PK) {
+        return false
+    }
+
+    return true
 }
