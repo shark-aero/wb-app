@@ -35,7 +35,7 @@ var limiterBoxFuel = document.getElementById('limiter-box-fuel');
 // switch
 // 1 front / 0 rear
 var switchBallast = document.getElementById("switch-ballast");
-switchBallast.checked = false;
+switchBallast.checked = true;
 var switchPosition = 0;
 // labels
 var switchFrontLabel = document.getElementById("front-label-ballast")
@@ -149,7 +149,7 @@ sliderPassenger.noUiSlider.on('update', function (values, handle) {
         switchRearLabel.style.fontWeight = "normal";
         switchRearLabel.style.color = "grey";
         // move switch
-        switchBallast.checked = true;
+        switchBallast.checked = false;
         switchPosition = 1;
 
 
@@ -161,7 +161,7 @@ sliderPassenger.noUiSlider.on('update', function (values, handle) {
         switchFrontLabel.style.fontWeight = "normal";
         switchFrontLabel.style.color = "grey";
         // move switch
-        switchBallast.checked = false;
+        switchBallast.checked = true;
         switchPosition = 0;
     }
     updateFigure()
@@ -220,18 +220,18 @@ inputFuel.addEventListener('change', function () {
 style = getComputedStyle(document.body)
 switchBallast.addEventListener('change', function () {
     if (switchBallast.checked) {
-        switchPosition = 1;
-        switchFrontLabel.style.fontWeight = "bold";
-        switchFrontLabel.style.color = "black";
-        switchRearLabel.style.fontWeight = "normal";
-        switchRearLabel.style.color = style.getPropertyValue('--third');
-        updateFigure()
-    } else {
         switchPosition = 0;
         switchRearLabel.style.fontWeight = "bold";
         switchRearLabel.style.color = "black";
         switchFrontLabel.style.fontWeight = "normal";
         switchFrontLabel.style.color = style.getPropertyValue('--third');
+        updateFigure()
+    } else {
+        switchPosition = 1;
+        switchFrontLabel.style.fontWeight = "bold";
+        switchFrontLabel.style.color = "black";
+        switchRearLabel.style.fontWeight = "normal";
+        switchRearLabel.style.color = style.getPropertyValue('--third');
         updateFigure()
     }
 });
