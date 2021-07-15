@@ -156,10 +156,13 @@ var idLimiterBoxBaggage = document.getElementById('limiter-box-baggage');
 var idLimiterBoxFuel = document.getElementById('limiter-box-fuel');
 
 // id warings
-var idWarningTextPax = document.getElementById('warning-text-pax');
-var idWarningTextBaggage = document.getElementById('warning-text-baggage');
-var idWarningTextFuel = document.getElementById('warning-text-fuel');
-var idWarningTextEnvelope = document.getElementById('warning-text-envelope');
+var idWarningText = document.getElementById('warning-text');
+
+// id cautions
+var idCaution = document.getElementById('caution');
+var idCautionTextPax = document.getElementById('caution-text-pax');
+var idCautionTextBaggage = document.getElementById('caution-text-baggage');
+var idCautionTextFuel = document.getElementById('caution-text-fuel');
 
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- 
 // UPDATE FIGURE
@@ -173,53 +176,6 @@ function updateFigure() {
     var passengerWeight = parseFloat(inputPassenger.value);
     var baggageWeight = parseFloat(inputBaggage.value);
 
-    // warnings 
-    // pax weight > 200kg
-    if (pilotWeight + passengerWeight > 200) {
-        idWarningPax.style.visibility = "visible"
-        idWarningTextPax.style.display = ""
-        idIconPax.style.visibility = "hidden"
-    } else {
-        idWarningPax.style.visibility = "hidden"
-        idIconPax.style.visibility = "visible"
-        idWarningTextPax.style.display = "none"
-    }
-    // 2 occupants 
-    if (passengerWeight > 25) {
-        // fuel > 100l
-        limiterBoxBaggage.style.display = "block"
-        limiterBoxFuel.style.display = "block"
-
-        if (fuelVolume > 100) {
-            idWarningFuel.style.visibility = "visible"
-            idWarningTextFuel.style.display = ""
-            idIconFuel.style.visibility = "hidden"
-        } else {
-            idWarningFuel.style.visibility = "hidden"
-            idWarningTextFuel.style.display = "none"
-            idIconFuel.style.visibility = "visible"
-        }
-        // baggage > 15l
-        if (baggageWeight > 15) {
-            idWarningBaggage.style.visibility = "visible"
-            idWarningTextBaggage.style.display = ""
-            idIconBaggage.style.visibility = "hidden"
-        } else {
-            idWarningBaggage.style.visibility = "hidden"
-            idWarningTextBaggage.style.display = "none"
-            idIconBaggage.style.visibility = "visible"
-        }
-    } else {
-        idWarningBaggage.style.visibility = "hidden"
-        idWarningTextBaggage.style.display = "none"
-        idWarningFuel.style.visibility = "hidden"
-        idWarningTextFuel.style.display = "none"
-        idIconBaggage.style.visibility = "visible"
-        idIconFuel.style.visibility = "visible"
-
-        limiterBoxBaggage.style.display = ""
-        limiterBoxFuel.style.display = ""
-    }
     // empty / start moment
     var startMoment = (parseFloat(inputStartCG.value) / 100 * mac + refmac) * emptyWeight
 
@@ -250,13 +206,13 @@ function updateFigure() {
     var centerageZF = (armZF - refmac) / mac;
 
     // console.log(TOweight);
-    idWeightOutputTO.innerHTML = "Take-off weight: " + weightTO.toFixed(0) + " kg";
-    idCenterageOutputTO.innerHTML = "Take-off centerage: " + (centerageTO * 100).toFixed(1) + " %";
+    idWeightOutputTO.innerHTML = weightTO.toFixed(0) + " kg";
+    idCenterageOutputTO.innerHTML = (centerageTO * 100).toFixed(1) + " %";
 
-    idWeightOutputZF.innerHTML = "Zero-fuel weight: " + weightZF.toFixed(0) + " kg";
-    idCenterageOutputZF.innerHTML = "Zero-fuel centerage: " + (centerageZF * 100).toFixed(1) + " %";
+    idWeightOutputZF.innerHTML = weightZF.toFixed(0) + " kg";
+    idCenterageOutputZF.innerHTML = (centerageZF * 100).toFixed(1) + " %";
 
-    idWeightFuel.innerHTML = "Fuel weight: " + fuelWeight.toFixed(0) + " kg";
+    idWeightFuel.innerHTML = fuelWeight.toFixed(0) + " kg";
 
     dataResult = [{ x: centerageZF * 100, y: weightZF },
     { x: centerageTO * 100, y: weightTO }];
@@ -276,21 +232,63 @@ function updateFigure() {
         .attr("cx", x_scale(dataResult[1].x))
         .attr("cy", y_scale(dataResult[1].y))
 
-    // Check configuration
-    if (checkConfig(dataResult[1].y, dataResult[1].x) && checkConfig(dataResult[0].y, dataResult[0].x)) {
-        pathEnvelope.attr("stroke", "black")
-        .attr("stroke-width", 1.5)
-        idWarningTextEnvelope.style.display = "none"
+    // Limiter boxes
+    // If two occupants 
+    if (passengerWeight > 25) {
+        limiterBoxBaggage.style.display = "block"
+        limiterBoxFuel.style.display = "block"
     } else {
+        limiterBoxBaggage.style.display = ""
+        limiterBoxFuel.style.display = ""
+    }
+
+    // WARNINGS
+    // Check Envelope
+    var flagwarnings = checkWarnings(dataResult);
+    if (flagwarnings) {
         pathEnvelope.attr("stroke", "red")
-        .attr("stroke-width", 2.0)
-        idWarningTextEnvelope.style.display = "block"
+            .attr("stroke-width", 2.0)
+        idWarningText.style.display = "block"
+    } else {
+        pathEnvelope.attr("stroke", "black")
+            .attr("stroke-width", 1.5)
+        idWarningText.style.display = "none"
+    }
+
+    // CAUTION
+    var flagCaution = checkCautions(pilotWeight, passengerWeight, baggageWeight, fuelVolume);
+
+    // if 2 occupants and baggage > 15kg
+    if (flagCaution[0]) {
+        idCautionTextBaggage.style.display = "block"
+    } else {
+        idCautionTextBaggage.style.display = "none"
+    }
+
+    // if 2 occupants and fuel > 100L
+    if (flagCaution[1]) {
+        idCautionTextFuel.style.display = "block"
+    } else {
+        idCautionTextFuel.style.display = "none"
+    }
+
+    // if 2 occupants > 100kg
+    if (flagCaution[2]) {
+        idCautionTextPax.style.display = "block"
+    } else {
+        idCautionTextPax.style.display = "none"
+    }
+
+    // if one warnings show title
+    if (flagCaution[0] || flagCaution[1] || flagCaution[2]) {
+        idCaution.style.display = "grid"
+    } else {
+        idCaution.style.display = "none"
     }
 
 }
 
-function checkConfig(weight, cg) {
-
+function checkEnvelope(weight, cg) {
     // check line KL
     if (weight > pt_K.y) {
         return false
@@ -330,4 +328,39 @@ function checkConfig(weight, cg) {
     }
 
     return true
+}
+
+function checkWarnings(dataResult) {
+    // flag envelope warning
+    var flagEnvelopeWarning = false;
+
+    if (!checkEnvelope(dataResult[1].y, dataResult[1].x) || !checkEnvelope(dataResult[0].y, dataResult[0].x)) {
+        flagEnvelopeWarning = true;
+    }
+
+    return flagEnvelopeWarning
+}
+
+function checkCautions(pilotWeight, passengerWeight, baggageWeight, fuelVolume) {
+
+    var flagBaggageCaution = false;
+    var flagFuelCaution = false;
+    var flagTwoOccupantsCaution = false;
+
+    // flag baggage warning
+    if (passengerWeight > 25 && baggageWeight > 15) {
+        flagBaggageCaution = true;
+    }
+
+    // flag fuel warning
+    if (passengerWeight > 25 && fuelVolume > 100) {
+        flagFuelCaution = true;
+    }
+
+    // flag two occupants warning
+    if (pilotWeight + passengerWeight > 200) {
+        flagTwoOccupantsCaution = true;
+    }
+
+    return [flagBaggageCaution, flagFuelCaution, flagTwoOccupantsCaution]
 }

@@ -15,13 +15,13 @@ const assets = [
     './css/styles.css',
     './css/materialize.min.css',
     './css/nouislider.min.css',
-    './img/google-icons/error_outline_black_24dp.svg',
+    './img/google-icons/caution.svg',
+    './img/google-icons/warning.svg',
     './img/google-icons/airline_seat_recline_extra-24px.svg',
     './img/google-icons/local_gas_station-24px.svg',
     './img/google-icons/airplanemode_active-24px.svg',
     './img/google-icons/luggage-24px.svg',
     './img/google-icons/ballast-24px.svg',
-    './img/google-icons/menu-24px.svg'
 ];
 
 // install event

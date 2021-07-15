@@ -53,7 +53,7 @@
         <!-- Passenger -->
         <div class="icons">
             <img src="./img/google-icons/airline_seat_recline_extra-24px.svg" id="icon-pax">
-            <img src="./img/google-icons/error_outline_black_24dp.svg" id="warning-pax" class="warning-icon">
+            <!-- <img src="./img/google-icons/error_outline_black_24dp.svg" id="warning-pax" class="warning-icon"> -->
         </div>
         <div class="title">Passenger</div>
         <div class="slider">
@@ -66,7 +66,7 @@
         <!-- Baggage -->
         <div class="icons">
             <img src="./img/google-icons/luggage-24px.svg" id="icon-baggage">
-            <img src="./img/google-icons/error_outline_black_24dp.svg" id="warning-baggage" class="warning-icon">
+            <!-- <img src="./img/google-icons/error_outline_black_24dp.svg" id="warning-baggage" class="warning-icon"> -->
         </div>
         <div class="title">Baggage</div>
         <div class="slider">
@@ -80,7 +80,7 @@
         <!-- Fuel -->
         <div class="icons">
             <img src="./img/google-icons/local_gas_station-24px.svg" id="icon-fuel">
-            <img src="./img/google-icons/error_outline_black_24dp.svg" id="warning-fuel" class="warning-icon">
+            <!-- <img src="./img/google-icons/error_outline_black_24dp.svg" id="warning-fuel" class="warning-icon"> -->
         </div>
         <div class="title">Fuel</div>
         <div class="slider">
@@ -106,24 +106,42 @@
         <div class="unit">kg</div>
     </div>
 
-    <!-- Warnings -->
-    <div class="row warning" id="warning-text-pax" style="display: none;">Occupants weight > 200kg</div>
-    <div class="row warning" id="warning-text-baggage" style="display: none;">Baggage weight > 15kg with 2 occupants
-    </div>
-    <div class="row warning" id="warning-text-fuel" style="display: none;">Fuel quantity > 100L with 2 occupants
-    </div>
 
     <!-- Result section -->
-    <div class="noselect" id="figure_area"></div>
-    <div class="row warning" id="warning-text-envelope" style="display: none;">Out of envelope!
+    <div class="noselect" id="figure_area">
+        <div class="warnings" id="warning-text">
+            <div class="warning-title">WARNING</div>
+            <img src="./img/google-icons/warning.svg">
+            <div class="warning-message">OUT OF CG ENVELOPE</div>
+        </div>
+    </div>
+
+    <!-- caution -->
+    <div class="container cautions" id="caution">
+        <div class="caution-title">
+            <div>CAUTION</div>
+            <img src="./img/google-icons/caution.svg">
+        </div>
+        <div class="caution-messages">
+            <div class="caution-message" id="caution-text-pax" style="display: none;">- Occupants weight > 200kg</div>
+            <div class="caution-message" id="caution-text-baggage" style="display: none;">- Baggage weight > 15kg with 2
+                occupants</div>
+            <div class="caution-message" id="caution-text-fuel" style="display: none;">- Fuel quantity > 100L with 2
+                occupants</div>
+        </div>
     </div>
 
     <div class="container text-output">
-        <p class="text-output-item" id="weightTO-output"></p>
-        <p class="text-output-item" id="centerageTO-output"></p>
-        <p class="text-output-item" id="weightZF-output"></p>
-        <p class="text-output-item" id="centerageZF-output"></p>
-        <p class="text-output-item" id="fuel-output"></p>
+        <p>Take-off weight:</p>
+        <p id="weightTO-output"></p>
+        <p>Take-off centerage:</p>
+        <p id="centerageTO-output"></p>
+        <p>Zero-fuel weight:</p>
+        <p id="weightZF-output"></p>
+        <p>Zero-fuel centerage:</p>
+        <p id="centerageZF-output"></p>
+        <p>Fuel weight:</p>
+        <p id="fuel-output"></p>
     </div>
 
     <div class="footer noselect">
