@@ -1,19 +1,14 @@
-const staticCacheName = 'site-static-v1.0.0';
+const staticCacheName = 'site-static-v1.0.1';
 const assets = [
     './',
     './index.html',
     './about.html',
-    './database.html',
     './js/ui.js',
     './js/app.js',
     './js/graph.js',
-    './js/import_db.js',
-    './js/render_db.js',
     './js/vendor/nouislider.min.js',
-    './js/vendor/materialize.min.js',
     './js/vendor/d3.v6.min.js',
     './css/styles.css',
-    './css/materialize.min.css',
     './css/nouislider.min.css',
     './img/google-icons/caution.svg',
     './img/google-icons/warning.svg',
