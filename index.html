@@ -115,35 +115,38 @@
             <div class="warning-message">OUT OF CG ENVELOPE</div>
         </div>
     </div>
-
+    
     <!-- caution -->
-    <div class="container cautions" id="caution">
+    <div class="container cautions noselect" id="caution">
         <div class="caution-title">
             <div>CAUTION</div>
             <img src="./img/google-icons/caution.svg">
         </div>
         <div class="caution-messages">
-            <div class="caution-message" id="caution-text-pax" style="display: none;">- Occupants weight > 200kg</div>
-            <div class="caution-message" id="caution-text-baggage" style="display: none;">- Baggage weight > 15kg with 2
+            <div class="caution-message" id="caution-text-pax">- Occupants weight > 200kg</div>
+            <div class="caution-message" id="caution-text-baggage">- Baggage weight > 15kg with 2
                 occupants</div>
-            <div class="caution-message" id="caution-text-fuel" style="display: none;">- Fuel quantity > 100L with 2
+            <div class="caution-message" id="caution-text-fuel">- Fuel quantity > 100L with 2
                 occupants</div>
         </div>
     </div>
 
+    <!-- text output -->
+    <!-- <div class="container text-output"> -->
     <div class="container text-output">
-        <p>Take-off weight:</p>
-        <p id="weightTO-output"></p>
-        <p>Take-off centerage:</p>
-        <p id="centerageTO-output"></p>
-        <p>Zero-fuel weight:</p>
-        <p id="weightZF-output"></p>
-        <p>Zero-fuel centerage:</p>
-        <p id="centerageZF-output"></p>
-        <p>Fuel weight:</p>
-        <p id="fuel-output"></p>
+        <div>Take-off weight:</div>
+        <div id="weightTO-output"></div>
+        <div>Take-off centerage:</div>
+        <div id="centerageTO-output"></div>
+        <div>Zero-fuel weight:</div>
+        <div id="weightZF-output"></div>
+        <div>Zero-fuel centerage:</div>
+        <div id="centerageZF-output"></div>
+        <div>Fuel weight:</div>
+        <div id="fuel-output"></div>
     </div>
-
+    
+    <!-- footer -->
     <div class="footer noselect">
         <p class="version">version 1.0.1</p>
         <p>All content copyright shark.aero, all rights reserved.</p>
@@ -156,6 +159,6 @@
     <script type="text/javascript" src="./js/app.js"></script>
     <script type="text/javascript" src="./js/graph.js"></script>
     <script type="text/javascript" src="./js/ui.js"></script>
-</body>
 
+</body>
 </html>

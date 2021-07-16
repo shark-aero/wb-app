@@ -12,14 +12,14 @@ html {
     color: rgba(0,0,0,0.87);
     font-size: 14px;
 }
+
 .noselect {
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
     -khtml-user-select: none; /* Konqueror HTML */
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* Internet Explorer/Edge */
-    /* Non-prefixed version, currently supported by Chrome and Opera */
-    user-select: none;
+    user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
 }
     
 body {
@@ -55,7 +55,6 @@ nav a {
 
 .sections  {
     grid-template-columns: min-content min-content auto min-content min-content;
-    /* grid-template-rows: 20px 70px; */
     row-gap: 3px;
 }
 
@@ -111,11 +110,12 @@ nav a {
 
 /* warnings */
 .warnings {
+    display: none;
     grid-template-columns: min-content auto;
     position: absolute;
     left: 50%;
-    margin-left: -50px;
     top: 50%;
+    margin-left: -50px;
     margin-top: -50px;
     text-align: center;
 }
@@ -134,6 +134,8 @@ nav a {
     grid-template-columns: min-content auto;
     padding-top: 10px;
     padding-bottom: 10px;
+    max-height: 999999px;
+    display: none;
 }
 
 .caution-title {
@@ -362,6 +364,7 @@ label {
     column-gap: 2vw;
     padding-left: auto;
     padding-right: auto;
+    max-height: 999999px;
 }
 
 @media screen and (max-width: 390px) {

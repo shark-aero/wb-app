@@ -205,17 +205,15 @@ function updateFigure() {
     var armZF = momentZF / weightZF;
     var centerageZF = (armZF - refmac) / mac;
 
-    // console.log(TOweight);
+    // Text output
     idWeightOutputTO.innerHTML = weightTO.toFixed(0) + " kg";
     idCenterageOutputTO.innerHTML = (centerageTO * 100).toFixed(1) + " %";
-
     idWeightOutputZF.innerHTML = weightZF.toFixed(0) + " kg";
     idCenterageOutputZF.innerHTML = (centerageZF * 100).toFixed(1) + " %";
-
     idWeightFuel.innerHTML = fuelWeight.toFixed(0) + " kg";
 
     dataResult = [{ x: centerageZF * 100, y: weightZF },
-    { x: centerageTO * 100, y: weightTO }];
+        { x: centerageTO * 100, y: weightTO }];
 
     // Update points and line 
     lineResult
