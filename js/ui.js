@@ -65,7 +65,7 @@ noUiSlider.create(sliderPilot, {
         // mode: 'range',
         mode: 'values',
         values: [60, 70, 80, 90, 100, 110],
-        density: 5,
+        density: 4,
     },
 });
 
