@@ -357,23 +357,21 @@ label {
 
 /* text-output area */
 .text-output {
-    display: grid;
     font-weight: bold;
     max-width: 500px;
-    grid-template-columns: max-content auto max-content max-content ;
-    column-gap: 2vw;
-    padding-left: auto;
-    padding-right: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr ;
+    text-align: center;
     max-height: 999999px;
 }
 
-@media screen and (max-width: 390px) {
-    .text-output {
-        width: fit-content;
-        grid-template-columns: max-content auto;
-        margin-left: auto;
-        margin-right: auto;
-    }
+.text-output .column {
+    text-align: center;
+}
+
+.text-output .rows {
+    display: inline-block; 
+    text-align: left;
 }
 
 .text-output > p {
