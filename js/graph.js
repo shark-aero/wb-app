@@ -50,7 +50,7 @@ svg
     .attr("text-anchor", "end")
     .attr("x", figure_size.width - figure_size.x_margin)
     .attr("y", (figure_size.height - figure_size.y_margin - 6))
-    .text("Centerage (%)");
+    .text("CG (%)");
 
 
 // Y scale and Axis
