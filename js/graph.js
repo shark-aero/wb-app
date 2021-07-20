@@ -15,11 +15,16 @@ var pt_L = dataEnvelope[3];
 var pt_M = dataEnvelope[4];
 var pt_N = dataEnvelope[5];
 
+// default config
 var dataResult = [
     { x: 20, y: 400 }, { x: 26, y: 500 },
 ];
 
-const graph_domain = { x_min: 15, x_max: 33, y_min: 340, y_max: 650 };
+// default empty
+var dataEmpty = { x: 14.5, y: 300 };
+
+
+const graph_domain = { x_min: 14, x_max: 33, y_min: 324, y_max: 650 };
 const figure_size = { height: 350, x_margin: 40, y_margin: 30 };
 
 var figure_area = document.getElementById('figure_area');
@@ -36,7 +41,7 @@ var x_scale = d3.scaleLinear()
     .domain([graph_domain.x_min, graph_domain.x_max])
     .range([figure_size.x_margin, (figure_size.width - figure_size.x_margin)]);
 
-var x_ticks = [16, 18, 20, 22, 24, 26, 28, 30, 32];
+var x_ticks = [14, 16, 18, 20, 22, 24, 26, 28, 30, 32];
 var x_axis = d3.axisBottom()
     .scale(x_scale)
     .tickValues(x_ticks);
@@ -51,7 +56,6 @@ svg
     .attr("x", figure_size.width - figure_size.x_margin)
     .attr("y", (figure_size.height - figure_size.y_margin - 6))
     .text("CG (%)");
-
 
 // Y scale and Axis
 var y_scale = d3.scaleLinear()
@@ -107,6 +111,13 @@ var pointTO = svg.append("circle")
 var pointZF = svg.append("circle")
     .attr("cx", x_scale(dataResult[1].x))
     .attr("cy", y_scale(dataResult[1].y))
+    .attr("fill", 'black')
+    .attr("r", 2.5);
+
+// Add emprt point
+var pointEmpty = svg.append("circle")
+    .attr("cx", x_scale(dataEmpty.x))
+    .attr("cy", y_scale(dataEmpty.y))
     .attr("fill", 'black')
     .attr("r", 2.5);
 
@@ -215,6 +226,8 @@ function updateFigure() {
     dataResult = [{ x: centerageZF * 100, y: weightZF },
         { x: centerageTO * 100, y: weightTO }];
 
+    dataEmpty = { x: inputStartCG.value, y: emptyWeight };
+
     // Update points and line 
     lineResult
         .attr('x1', x_scale(dataResult[0].x))
@@ -229,6 +242,10 @@ function updateFigure() {
     pointTO
         .attr("cx", x_scale(dataResult[1].x))
         .attr("cy", y_scale(dataResult[1].y))
+
+    pointEmpty
+        .attr("cx", x_scale(dataEmpty.x))
+        .attr("cy", y_scale(dataEmpty.y))
 
     // Limiter boxes
     // If two occupants 
