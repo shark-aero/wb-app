@@ -56,9 +56,8 @@ noUiSlider.create(sliderPilot, {
     connect: true,
     behaviour: 'snap',
     step: 1,
-    padding: [55, 0],
     range: {
-        'min': 0,
+        'min': 55,
         'max': occupantMaxWeight
     },
 
