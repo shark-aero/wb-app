@@ -1,4 +1,5 @@
 
+
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- 
 // VAR
 
@@ -127,6 +128,11 @@ noUiSlider.create(sliderFuel, {
 
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- 
 // ON UPDATE SLIDERS
+function updateFigure() {
+    //dummy function,
+    //updateFigure redefined later 
+}
+
 // PILOT
 sliderPilot.noUiSlider.on('update', function (values, handle) {
     var value = values[handle];

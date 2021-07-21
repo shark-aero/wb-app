@@ -22,8 +22,6 @@ var dataResult = [
 
 // default empty
 var dataEmpty = { x: 14.5, y: 300 };
-
-
 const graph_domain = { x_min: 14, x_max: 33, y_min: 324, y_max: 650 };
 const figure_size = { height: 350, x_margin: 40, y_margin: 30 };
 
@@ -41,12 +39,12 @@ var x_scale = d3.scaleLinear()
     .domain([graph_domain.x_min, graph_domain.x_max])
     .range([figure_size.x_margin, (figure_size.width - figure_size.x_margin)]);
 
-var x_ticks = [14, 16, 18, 20, 22, 24, 26, 28, 30, 32];
+var x_ticks = d3.range(graph_domain.x_min, graph_domain.x_max, 2);
 var x_axis = d3.axisBottom()
     .scale(x_scale)
     .tickValues(x_ticks);
 
-svg.append("g")
+var svg_x_axis = svg.append("g")
     .attr("transform", "translate(0, " + (figure_size.height - figure_size.y_margin) + ")")
     .call(x_axis);
 svg
@@ -62,12 +60,12 @@ var y_scale = d3.scaleLinear()
     .domain([graph_domain.y_min, graph_domain.y_max])
     .range([figure_size.height - figure_size.y_margin, figure_size.y_margin]);
 
-var y_ticks = [350, 400, 450, 500, 550, 600, 650];
+var y_ticks = d3.range(350, graph_domain.y_max + 1, 50);
 var y_axis = d3.axisLeft()
     .scale(y_scale)
     .tickValues(y_ticks);
 
-svg.append("g")
+var svg_y_axis = svg.append("g")
     .attr("transform", "translate(" + figure_size.x_margin + ",0)")
     .call(y_axis);
 svg
@@ -224,11 +222,36 @@ function updateFigure() {
     idWeightFuel.innerHTML = fuelWeight.toFixed(0) + " kg";
 
     dataResult = [{ x: centerageZF * 100, y: weightZF },
-        { x: centerageTO * 100, y: weightTO }];
+    { x: centerageTO * 100, y: weightTO }];
 
     dataEmpty = { x: inputStartCG.value, y: emptyWeight };
 
-    // Update points and line 
+    // adjust x axis scale
+    var xtop = d3.max([graph_domain.x_max, dataResult[1].x]);
+    x_scale.domain([graph_domain.x_min, xtop]);
+    var x_ticks = d3.range(graph_domain.x_min, xtop, 2);
+    x_axis
+    .scale(x_scale)
+    .tickValues(x_ticks);
+    svg_x_axis.call(x_axis);
+    
+    // adjust y axis scale
+    var ytop = d3.max([graph_domain.y_max, dataResult[1].y]);
+    y_scale.domain([graph_domain.y_min, ytop]);
+    var y_ticks = d3.range(350, ytop + 1, 50);
+    y_axis
+    .scale(y_scale)
+    .tickValues(y_ticks);
+    svg_y_axis.call(y_axis);
+    
+    // Update points, line and envelope
+    pathEnvelope
+        .datum(dataEnvelope)
+        .attr("d", d3.line()
+            .x(function (d) { return x_scale(d.x) })
+            .y(function (d) { return y_scale(d.y) })
+        );
+
     lineResult
         .attr('x1', x_scale(dataResult[0].x))
         .attr('y1', y_scale(dataResult[0].y))
@@ -300,8 +323,10 @@ function updateFigure() {
     } else {
         idCaution.style.display = "none"
     }
-
 }
+
+// First update
+updateFigure()
 
 function checkEnvelope(weight, cg) {
     // check line KL
