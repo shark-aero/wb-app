@@ -227,7 +227,6 @@ nav a {
 input[type="number"]:not(.browser-default) {
     text-align: right;
     height: 1rem;
-    /* width: 55%; */
     max-width: 3rem;
     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
     background-color: transparent;
@@ -240,6 +239,10 @@ input[type="number"]:not(.browser-default) {
     line-height: 1.15;
     box-shadow: none;
     box-sizing: content-box;
+}
+
+#input-start-cg {
+    max-width: 4rem;
 }
 
 input[type="number"]:not(.browser-default):focus:not([readonly]) {
