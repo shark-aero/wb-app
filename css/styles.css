@@ -34,13 +34,36 @@ nav {
     box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
     line-height: 46px;
     height: 46px;
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    padding-inline: 2.5%;
 }
 
 nav a {
     color: var(--title);
     text-decoration: none;
+}
+
+.logo {
+    display: flex;
+}
+
+.logo > * {
+    align-self: center;
+}
+
+.main-title {
+    justify-self: center;
+}
+
+.about {
+    justify-self: right;
+}
+
+@media screen and (max-width: 500px) {
+    .company-name {
+        display: none;
+    }
 }
 
 
@@ -171,6 +194,7 @@ nav a {
     }
 }
 
+/*  */
 @media screen and (max-width: 500px) {
     .title {
         grid-column: 2/-1;

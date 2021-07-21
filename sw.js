@@ -10,6 +10,7 @@ const assets = [
     './js/vendor/d3.v6.min.js',
     './css/styles.css',
     './css/nouislider.min.css',
+    './img/logo_shark.svg',
     './img/google-icons/caution.svg',
     './img/google-icons/warning.svg',
     './img/google-icons/airline_seat_recline_extra-24px.svg',
