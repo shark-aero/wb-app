@@ -106,7 +106,8 @@ nav a {
 
 .slider {
     grid-column: 3/4;
-    margin-inline: 4%;
+    margin-right: 4%;
+    margin-left: 4%;
     position: relative;
 }
 
@@ -117,7 +118,8 @@ nav a {
 }
 
 .user-input {
-    margin-inline: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .switch {
