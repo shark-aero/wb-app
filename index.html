@@ -33,13 +33,12 @@
     <div class="container user-section noselect">
         <img src="./img/google-icons/airplanemode_active-24px.svg" class="icon" alt="icon airplane">
         <div>Empty weight</div>
-        <input class="user-input" type="number" id="input-empty-weight">
+        <input class="user-input" type="number" id="input-empty-weight" min="0" max="999">
         <div class="unit">kg</div>
         <div></div>
         <div>Empty CG</div>
-        <input class="user-input" type="number" id="input-start-cg" step=0.1>
+        <input class="user-input" type="number" id="input-start-cg" step=0.01 min="0" max="99">
         <div class="unit">%</div>
-
     </div>
 
     <div class="container sections noselect">
@@ -103,7 +102,7 @@
             </label>
             <span id="rear-label-ballast" style="font-weight: bold; color: black;">Rear</span>
         </div>
-        <input class="input" type="number" value="6" disabled>
+        <input class="input" type="number" value="6" id="input-ballast" disabled>
         <div class="unit">kg</div>
     </div>
 

@@ -191,12 +191,14 @@ sliderFuel.noUiSlider.on('update', function (values, handle) {
 // ON UPDATE INPUTS
 // EMPTY WEIGHT
 inputEmptyWeight.addEventListener('change', function () {
+    this.value = Math.min(this.value, 999)
     localStorage.setItem("EmptyWeight", this.value);
     updateFigure();
 });
 
 // START MOMENT
 inputStartCG.addEventListener('change', function () {
+    this.value = parseFloat(Math.min(this.value, 99)).toFixed(2)
     localStorage.setItem("StartCG", this.value);
     updateFigure();
 });
