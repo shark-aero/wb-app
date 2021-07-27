@@ -45,6 +45,10 @@ nav a {
     text-decoration: none;
 }
 
+nav b {
+    transform: scaleY(1.25); 
+}
+
 .logo {
     display: flex;
 }
