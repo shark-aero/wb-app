@@ -45,8 +45,9 @@ nav a {
     text-decoration: none;
 }
 
-nav b {
-    /* transform: scaleY(1.25);  */
+.company-name{
+    font-weight: bold;
+    transform: scaleY(1.25);
 }
 
 .logo {
@@ -60,6 +61,7 @@ nav b {
 .main-title {
     justify-self: center;
 }
+
 
 .about {
     justify-self: right;
