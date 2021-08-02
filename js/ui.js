@@ -43,17 +43,39 @@ var switchFrontLabel = document.getElementById("front-label-ballast")
 var switchRearLabel = document.getElementById("rear-label-ballast")
 
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- 
-// INPUTS
+// IMPORT STORED INPUTS
+// Aircraft weight and cg
 if (localStorage.getItem("EmptyWeight") != null && localStorage.getItem("StartCG") != null) {
     inputEmptyWeight.value = localStorage.getItem("EmptyWeight");
     inputStartCG.value = localStorage.getItem("StartCG");
 }
+
+// Pilot
+if (localStorage.getItem("PilotWeight")) {
+    inputPilot.value = localStorage.getItem("PilotWeight");
+}
+
+// Passenger
+if (localStorage.getItem("PassengerWeight")) {
+    inputPassenger.value = localStorage.getItem("PassengerWeight");
+}
+
+// Baggage
+if (localStorage.getItem("BaggageWeight")) {
+    inputBaggage.value = localStorage.getItem("BaggageWeight");
+}
+
+// Fuel
+if (localStorage.getItem("FuelWeight")) {
+    inputFuel.value = localStorage.getItem("FuelWeight");
+}
+
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- 
 // CREATE SLIDERS
 
 // PILOT 
 noUiSlider.create(sliderPilot, {
-    start: [pilotWeightDefault],
+    start: [inputPilot.value],
     connect: true,
     behaviour: 'snap',
     step: 1,
@@ -72,7 +94,7 @@ noUiSlider.create(sliderPilot, {
 
 // PASSENGER
 noUiSlider.create(sliderPassenger, {
-    start: [passengerWeightDefault],
+    start: [inputPassenger.value],
     connect: true,
     behaviour: 'snap',
     step: 1,
@@ -90,7 +112,7 @@ noUiSlider.create(sliderPassenger, {
 
 // BAGGAGE
 noUiSlider.create(sliderBaggage, {
-    start: [baggageWeightDefault],
+    start: [inputBaggage.value],
     connect: true,
     behaviour: 'snap',
     step: 1,
@@ -109,7 +131,7 @@ noUiSlider.create(sliderBaggage, {
 
 // FUEL
 noUiSlider.create(sliderFuel, {
-    start: [fuelQuantityDefault],
+    start: [inputFuel.value],
     connect: true,
     behaviour: 'snap',
     step: 1,
@@ -137,6 +159,7 @@ function updateFigure() {
 sliderPilot.noUiSlider.on('update', function (values, handle) {
     var value = values[handle];
     inputPilot.value = Math.round(value);
+    localStorage.setItem("PilotWeight", value);
     updateFigure()
 });
 
@@ -145,6 +168,7 @@ sliderPilot.noUiSlider.on('update', function (values, handle) {
 sliderPassenger.noUiSlider.on('update', function (values, handle) {
     var value = values[handle];
     inputPassenger.value = Math.round(value);
+    localStorage.setItem("PassengerWeight", value);
     // if two occupants
     if (value > twoOccupantWeight) {
         // move ballast to front
@@ -176,6 +200,7 @@ sliderPassenger.noUiSlider.on('update', function (values, handle) {
 sliderBaggage.noUiSlider.on('update', function (values, handle) {
     var value = values[handle];
     inputBaggage.value = Math.round(value);
+    localStorage.setItem("BaggageWeight", value);
     updateFigure()
 });
 
@@ -183,6 +208,7 @@ sliderBaggage.noUiSlider.on('update', function (values, handle) {
 sliderFuel.noUiSlider.on('update', function (values, handle) {
     var value = values[handle];
     inputFuel.value = Math.round(value);
+    localStorage.setItem("FuelWeight", value);
     updateFigure();
 });
 
