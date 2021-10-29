@@ -1,0 +1,22 @@
+<svg width="22" height="19" fill="#000000" version="1.1" viewBox="0 0 22 19" xmlns="http://www.w3.org/2000/svg" xmlns:osb="http://www.openswatchbook.org/uri/2009/osb" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <linearGradient id="linearGradient876" osb:paint="solid">
+   <stop stop-color="#090000" offset="0"/>
+  </linearGradient>
+  <linearGradient id="linearGradient886" x1=".547" x2="22.5" y1="11" y2="11" gradientTransform="translate(1.1 .729)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient876"/>
+ </defs>
+ <g transform="translate(-1.65 -2.27)">
+  <g>
+   <path d="m12.7 2.27-11 19h22z" fill="url(#linearGradient886)"/>
+   <path d="m12.7 6.26 7.53 13h-15.1l7.53-13" fill="#ffd400"/>
+   <path d="m13.7 16.3h-2v2h2z" fill="url(#linearGradient886)"/>
+   <path d="m13.7 10.3h-2v4h2z" fill="url(#linearGradient886)"/>
+  </g>
+  <g fill-opacity="0" stroke-width=".0312">
+   <path d="m6.73 15.2c0.00655-0.0129 0.693-1.2 1.52-2.64l1.51-2.62 4.47 0.016 1.58 2.72v2.55h-4.55c-2.5 0-4.54-0.0106-4.54-0.0234z"/>
+   <path d="m13 12c3.18 0.123 0.917-1.11 0-2.02h-2.06v4.03h2.06z"/>
+   <path d="m4.53 19c0-0.0123 0.493-0.876 1.1-1.92l1.1-1.9 9.09 0.016 0.0042-0.133c0.0023-0.0732 0.0129-0.629 0.0234-1.23l0.0192-1.1 1.78 3.08c0.98 1.69 1.79 3.1 1.79 3.12 0.0078 0.0335-0.186 0.0416-1.03 0.0433-0.572 0.0011-3.93 0.0114-7.45 0.023-3.53 0.0115-6.41 0.0109-6.41-0.0013z"/>
+   <path d="m13 18c0.0437-0.0168 0.0494-0.137 0.0494-1.03v-1.01h-2.03v1.01c0 0.556 0.0094 1.02 0.0208 1.03 0.026 0.026 1.89 0.0278 1.96 0.0019z"/>
+  </g>
+ </g>
+</svg>
