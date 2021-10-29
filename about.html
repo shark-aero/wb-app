@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SHARK.AERO W&B</title>
+
+    <!-- materialize icons, css & js -->
+    <link type="text/css" href="./css/nouislider.min.css" rel="stylesheet">
+    <link type="text/css" href="./css/styles.css" rel="stylesheet">
+    <link type="text/css" href="./css/styles_about.css" rel="stylesheet">
+    <link rel="manifest" href="./manifest.json">
+
+    <!-- ios support -->
+    <link rel="apple-touch-icon" href="./img/icons/icon-96x96.png">
+    <meta name="apple-mobile-web-app-status-bar" content="#f5f5f5">
+    <meta name="theme-color" content="#f44336">
+</head>
+
+<body>
+
+    <!-- navbar -->
+    <nav>
+        <div class="logo">
+            <div class="company-name">SHARK.AERO</div>
+            <img src="./img/logo_shark.svg" height="42" alt="logo shark">
+        </div>
+        <div class="main-title">Weight and balance</div>
+        <a class="about" href="./index.html">Home</a>
+    </nav>
+
+    <div class="container">
+        <b>
+            All content copyright shark.aero, all rights reserved. This app is not completed. It comes without any
+            guarantee for now.
+        </b>
+        
+
+        <p>
+            Shark.aero weight and balance is a web application that helps to calculate CG position and weight of the
+            aircraft. The app is accessible at <a href="http://app.shark.aero">app.shark.aero</a>. It runs with a web browser on mobile and computer.
+            After the 
+            first visit, the app is usable offline.</p>
+
+        <h2>How to use</h2>
+
+        <ul>
+            <li>
+                Enter the empty weight and CG position written in your flight manual.
+            </li>
+            <li>
+                Use the sliders or the input boxes to enter weights loaded.
+            </li>
+            <li>
+                The ballast position is set automatically depending on the rear seat load.
+            </li>
+            <li>
+                The weight and balance result is drawn on the figure bellow the inputs. The x-axis of the graph
+                corresponds to the CG position, given in % of mac. The y-axis corresponds to the weight.
+            </li>
+        </ul>
+        <p>
+            Both maximal take-off weight and zero-fuel weight configurations are drawn. If one of these configurations is
+            out of the CG envelope, a warning appears on the graph.
+        </p>
+
+        <p>
+            Caution messages will appear if the occupants weight is greater than 200kg, if the fuel quantity is greater
+            than 100L with 2 occupants or the baggage weight greater than 15kg with two occupants.
+        </p>
+
+
+        <h2>
+            How to install on mobiles
+        </h2>
+        <p>
+            On mobiles, it is possible to install the app like a native app.
+        </p>
+        <ul>
+            <li>
+                Chrome browser automatically displays a banner that propose to install the app on the home screen.
+                If the banner does not appear, tap the menu button at the top right corner and select “Install the
+                application”.
+            </li>
+            <li>
+                On safari, it is needed to tap the “share button” then select “Add to home screen”.
+            </li>
+            <li>
+                On Firefox, tap the menu button at the top or bottom right corner and select “Add to home screen”.
+            </li>
+        </ul>
+
+        <p>
+            The app takes care of the updates by itself. However, it is still possible to force the update by deleting
+            the
+            cache associated to the application in the browser setting. From the next visit of the website, the last
+            version online will be loaded.
+        </p>
+        <p>
+            Last inputs entered are saved by the browser/app. Carefully check that empty weight and CG correspond
+            to the aircraft you intend to use.
+        </p>
+
+        <h2>Terms of use</h2>
+        <div>To be completed</div>
+        <h2>Licences</h2>
+        <p>
+            All content copyright shark.aero, all rights reserved.
+            Based on:
+        </p>
+        <ul>
+            <li>
+                D3.js, BSD licence;
+            </li>
+            <li>
+                nouislider, MIT licence;
+            </li>
+        </ul>
+        <h2>Contact</h2>
+        <div>
+            See: <a href="http://www.shark.aero">www.shark.aero</a>
+        </div>
+
+    </div>
+
+    <div class="footer noselect">
+        <div>Last update 30/09/2021</div>
+    </div>
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="./js/vendor/d3.v6.min.js"></script>
+    <script src="./js/vendor/nouislider.min.js"></script>
+
+    <script src="./js/app.js"></script>
+
+</body>
+
+</html>
