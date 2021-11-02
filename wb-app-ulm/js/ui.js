@@ -9,7 +9,7 @@ var passengerWeightDefault = 0;
 var baggageWeightDefault = 0;
 
 var paxMaxWeight = 200;
-var occupantMaxWeight = 110;
+var occupantMaxWeight = 130;
 var twoOccupantWeight = 25;
 
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- 
@@ -76,8 +76,8 @@ noUiSlider.create(sliderPilot, {
     pips: {
         // mode: 'range',
         mode: 'values',
-        values: [60, 70, 80, 90, 100, 110],
-        density: 4,
+        values: [60, 70, 80, 90, 100, 110, 120, 130],
+        density: 6,
     },
 });
 
@@ -94,10 +94,11 @@ noUiSlider.create(sliderPassenger, {
     pips: {
         // mode: 'range',
         mode: 'values',
-        values: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110],
-        density: 5,
+        values: [0, 20, 40, 60, 80, 100, 120],
+        density: 4,
     },
 });
+
 
 // BAGGAGE
 noUiSlider.create(sliderBaggage, {

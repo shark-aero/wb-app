@@ -372,26 +372,26 @@ function checkWarnings(dataResult) {
     return flagEnvelopeWarning
 }
 
-function checkCautions(pilotWeight, passengerWeight, baggageWeight, fuelVolume) {
+// function checkCautions(pilotWeight, passengerWeight, baggageWeight, fuelVolume) {
 
-    var flagBaggageCaution = false;
-    var flagFuelCaution = false;
-    var flagTwoOccupantsCaution = false;
+//     var flagBaggageCaution = false;
+//     var flagFuelCaution = false;
+//     var flagTwoOccupantsCaution = false;
 
-    // flag baggage warning
-    if (passengerWeight > 25 && baggageWeight > 15) {
-        flagBaggageCaution = true;
-    }
+//     // flag baggage warning
+//     if (passengerWeight > 25 && baggageWeight > 15) {
+//         flagBaggageCaution = true;
+//     }
 
-    // flag fuel warning
-    if (passengerWeight > 25 && fuelVolume > 100) {
-        flagFuelCaution = true;
-    }
+//     // flag fuel warning
+//     if (passengerWeight > 25 && fuelVolume > 100) {
+//         flagFuelCaution = true;
+//     }
 
-    // flag two occupants warning
-    if (pilotWeight + passengerWeight > 200) {
-        flagTwoOccupantsCaution = true;
-    }
+//     // flag two occupants warning
+//     if (pilotWeight + passengerWeight > 200) {
+//         flagTwoOccupantsCaution = true;
+//     }
 
-    return [flagBaggageCaution, flagFuelCaution, flagTwoOccupantsCaution]
-}
+//     return [flagBaggageCaution, flagFuelCaution, flagTwoOccupantsCaution]
+// }

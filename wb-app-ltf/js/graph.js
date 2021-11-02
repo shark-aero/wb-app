@@ -85,8 +85,8 @@ var pathEnvelope = svg.append("path")
     .attr("stroke", "black")
     .attr("stroke-width", 1.5)
     .attr("d", d3.line()
-        .x(function (d) { return x_scale(d.x) })
-        .y(function (d) { return y_scale(d.y) })
+        .x(function(d) { return x_scale(d.x) })
+        .y(function(d) { return y_scale(d.y) })
     );
 
 // Add weight line
@@ -170,6 +170,7 @@ var idWarningText = document.getElementById('warning-text');
 // id cautions
 var idCaution = document.getElementById('caution');
 var idCautionTextPax = document.getElementById('caution-text-pax');
+var idCautionTextMaxOccupant = document.getElementById('caution-text-max-occupant');
 var idCautionTextBaggage = document.getElementById('caution-text-baggage');
 var idCautionTextFuel = document.getElementById('caution-text-fuel');
 
@@ -222,7 +223,8 @@ function updateFigure() {
     idWeightFuel.innerHTML = fuelWeight.toFixed(0) + " kg";
 
     dataResult = [{ x: centerageZF * 100, y: weightZF },
-    { x: centerageTO * 100, y: weightTO }];
+        { x: centerageTO * 100, y: weightTO }
+    ];
 
     dataEmpty = { x: inputStartCG.value, y: emptyWeight };
 
@@ -231,25 +233,25 @@ function updateFigure() {
     x_scale.domain([graph_domain.x_min, xtop]);
     var x_ticks = d3.range(graph_domain.x_min, xtop, 2);
     x_axis
-    .scale(x_scale)
-    .tickValues(x_ticks);
+        .scale(x_scale)
+        .tickValues(x_ticks);
     svg_x_axis.call(x_axis);
-    
+
     // adjust y axis scale
     var ytop = d3.max([graph_domain.y_max, dataResult[1].y]);
     y_scale.domain([graph_domain.y_min, ytop]);
     var y_ticks = d3.range(350, ytop + 1, 50);
     y_axis
-    .scale(y_scale)
-    .tickValues(y_ticks);
+        .scale(y_scale)
+        .tickValues(y_ticks);
     svg_y_axis.call(y_axis);
-    
+
     // Update points, line and envelope
     pathEnvelope
         .datum(dataEnvelope)
         .attr("d", d3.line()
-            .x(function (d) { return x_scale(d.x) })
-            .y(function (d) { return y_scale(d.y) })
+            .x(function(d) { return x_scale(d.x) })
+            .y(function(d) { return y_scale(d.y) })
         );
 
     lineResult
@@ -317,8 +319,15 @@ function updateFigure() {
         idCautionTextPax.style.display = "none"
     }
 
+    // if 1 occupants > 110kg
+    if (flagCaution[3]) {
+        idCautionTextMaxOccupant.style.display = "block"
+    } else {
+        idCautionTextMaxOccupant.style.display = "none"
+    }
+
     // if one warnings show title
-    if (flagCaution[0] || flagCaution[1] || flagCaution[2]) {
+    if (flagCaution[0] || flagCaution[1] || flagCaution[2] || flagCaution[3]) {
         idCaution.style.display = "grid"
     } else {
         idCaution.style.display = "none"
@@ -386,6 +395,7 @@ function checkCautions(pilotWeight, passengerWeight, baggageWeight, fuelVolume) 
     var flagBaggageCaution = false;
     var flagFuelCaution = false;
     var flagTwoOccupantsCaution = false;
+    var flagMaxOccupantsCaution = false;
 
     // flag baggage warning
     if (passengerWeight > 25 && baggageWeight > 15) {
@@ -402,5 +412,10 @@ function checkCautions(pilotWeight, passengerWeight, baggageWeight, fuelVolume) 
         flagTwoOccupantsCaution = true;
     }
 
-    return [flagBaggageCaution, flagFuelCaution, flagTwoOccupantsCaution]
+    // flag two occupants warning
+    if ((pilotWeight > 110) || (passengerWeight > 110)) {
+        flagMaxOccupantsCaution = true;
+    }
+
+    return [flagBaggageCaution, flagFuelCaution, flagTwoOccupantsCaution, flagMaxOccupantsCaution]
 }

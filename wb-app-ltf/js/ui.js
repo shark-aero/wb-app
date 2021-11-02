@@ -1,5 +1,3 @@
-
-
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- 
 // VAR
 
@@ -11,7 +9,7 @@ var passengerWeightDefault = 0;
 var baggageWeightDefault = 0;
 
 var paxMaxWeight = 200;
-var occupantMaxWeight = 110;
+var occupantMaxWeight = 130;
 var twoOccupantWeight = 25;
 
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- 
@@ -87,8 +85,8 @@ noUiSlider.create(sliderPilot, {
     pips: {
         // mode: 'range',
         mode: 'values',
-        values: [60, 70, 80, 90, 100, 110],
-        density: 4,
+        values: [60, 70, 80, 90, 100, 110, 120, 130],
+        density: 6,
     },
 });
 
@@ -105,8 +103,8 @@ noUiSlider.create(sliderPassenger, {
     pips: {
         // mode: 'range',
         mode: 'values',
-        values: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110],
-        density: 5,
+        values: [0, 20, 40, 60, 80, 100, 120],
+        density: 4,
     },
 });
 
@@ -156,7 +154,7 @@ function updateFigure() {
 }
 
 // PILOT
-sliderPilot.noUiSlider.on('update', function (values, handle) {
+sliderPilot.noUiSlider.on('update', function(values, handle) {
     var value = values[handle];
     inputPilot.value = Math.round(value);
     localStorage.setItem("PilotWeight", value);
@@ -165,7 +163,7 @@ sliderPilot.noUiSlider.on('update', function (values, handle) {
 
 
 // PASSENGER 
-sliderPassenger.noUiSlider.on('update', function (values, handle) {
+sliderPassenger.noUiSlider.on('update', function(values, handle) {
     var value = values[handle];
     inputPassenger.value = Math.round(value);
     localStorage.setItem("PassengerWeight", value);
@@ -197,7 +195,7 @@ sliderPassenger.noUiSlider.on('update', function (values, handle) {
 });
 
 // BAGGAGE
-sliderBaggage.noUiSlider.on('update', function (values, handle) {
+sliderBaggage.noUiSlider.on('update', function(values, handle) {
     var value = values[handle];
     inputBaggage.value = Math.round(value);
     localStorage.setItem("BaggageWeight", value);
@@ -205,7 +203,7 @@ sliderBaggage.noUiSlider.on('update', function (values, handle) {
 });
 
 // FUEL
-sliderFuel.noUiSlider.on('update', function (values, handle) {
+sliderFuel.noUiSlider.on('update', function(values, handle) {
     var value = values[handle];
     inputFuel.value = Math.round(value);
     localStorage.setItem("FuelWeight", value);
@@ -216,42 +214,42 @@ sliderFuel.noUiSlider.on('update', function (values, handle) {
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- 
 // ON UPDATE INPUTS
 // EMPTY WEIGHT
-inputEmptyWeight.addEventListener('change', function () {
+inputEmptyWeight.addEventListener('change', function() {
     this.value = Math.min(this.value, 999)
     localStorage.setItem("EmptyWeight", this.value);
     updateFigure();
 });
 
 // START MOMENT
-inputStartCG.addEventListener('change', function () {
+inputStartCG.addEventListener('change', function() {
     this.value = parseFloat(Math.min(this.value, 99)).toFixed(2)
     localStorage.setItem("StartCG", this.value);
     updateFigure();
 });
 
 // PILOT
-inputPilot.addEventListener('change', function () {
+inputPilot.addEventListener('change', function() {
     sliderPilot.noUiSlider.set([this.value, null]);
 });
 
 // PASSENGER
-inputPassenger.addEventListener('change', function () {
+inputPassenger.addEventListener('change', function() {
     sliderPassenger.noUiSlider.set([this.value, null]);
 });
 
 // BAGGAGE
-inputBaggage.addEventListener('change', function () {
+inputBaggage.addEventListener('change', function() {
     sliderBaggage.noUiSlider.set([this.value, null]);
 });
 
 // FUEL 
-inputFuel.addEventListener('change', function () {
+inputFuel.addEventListener('change', function() {
     sliderFuel.noUiSlider.set([this.value, null]);
 });
 
 // BALLAST
 style = getComputedStyle(document.body)
-switchBallast.addEventListener('change', function () {
+switchBallast.addEventListener('change', function() {
     if (switchBallast.checked) {
         switchPosition = 0;
         switchRearLabel.style.fontWeight = "bold";
