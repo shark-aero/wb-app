@@ -78,8 +78,11 @@ nav a {
 }
 
 .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 0.5rem;
     background-color: lightgray;
-    text-align: center;
     color: black;
     border: 1px solid grey;
     text-decoration: none;

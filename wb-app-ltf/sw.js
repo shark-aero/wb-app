@@ -11,6 +11,7 @@ const assets = [
     './css/styles.css',
     './css/nouislider.min.css',
     './img/logo_shark.svg',
+    './img/Flag_of_Germany.svg',
     './img/google-icons/caution.svg',
     './img/google-icons/warning.svg',
     './img/google-icons/airline_seat_recline_extra-24px.svg',
