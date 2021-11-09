@@ -47,6 +47,7 @@ nav {
     grid-template-columns: 1fr auto 1fr;
     padding-left: 2.5%;
     padding-right: 2.5%;
+    margin-bottom: 5px;
 }
 
 nav a {
@@ -70,31 +71,27 @@ nav a {
 .main-title {
     display: flex;
     align-items: center;
-    column-gap: 0.5rem;
 }
 
 .about {
     justify-self: right;
 }
 
-.navbar-title-short {
-    display: none;
-}
-
 @media screen and (max-width: 600px) {
     .company-name {
         display: none;
-    }
-    .navbar-title {
-        display: none;
-    }
-    .navbar-title-short {
-        display: block;
     }
 }
 
 
 /* Container, row and col */
+
+.certification {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 0.5rem;
+}
 
 .container {
     width: 95%;
