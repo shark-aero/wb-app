@@ -60,12 +60,6 @@ nav a {
     justify-self: right;
 }
 
-@media screen and (max-width: 500px) {
-    .company-name {
-        display: none;
-    }
-}
-
 
 /* Container*/
 
@@ -77,6 +71,11 @@ nav a {
     align-items: center;
 }
 
+b {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 .button {
     display: flex;
     justify-content: center;
@@ -85,10 +84,30 @@ nav a {
     background-color: lightgray;
     color: black;
     border: 1px solid grey;
+    border-radius: 3px;
     text-decoration: none;
-    margin-top: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+.flags {
+    display: flex;
+    justify-content: center;
+    column-gap: 0.5rem;
+}
+
+
+/* responsive */
+
+@media screen and (max-width: 600px) {
+    .company-name {
+        display: none;
+    }
+    .button {
+        flex-direction: column;
+    }
 }
 
 
