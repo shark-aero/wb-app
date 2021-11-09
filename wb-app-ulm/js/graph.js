@@ -154,17 +154,19 @@ var idIconBaggage = document.getElementById('icon-baggage');
 var idIconFuel = document.getElementById('icon-fuel');
 
 // id limiter boxes
-// var idLimiterBoxBaggage = document.getElementById('limiter-box-baggage');
-// var idLimiterBoxFuel = document.getElementById('limiter-box-fuel');
+var idLimiterBoxBaggage = document.getElementById('limiter-box-baggage');
+var idLimiterBoxFuel = document.getElementById('limiter-box-fuel');
 
 // id warings
 var idWarningText = document.getElementById('warning-text');
 
 // id cautions
-// var idCaution = document.getElementById('caution');
-// var idCautionTextPax = document.getElementById('caution-text-pax');
-// var idCautionTextBaggage = document.getElementById('caution-text-baggage');
-// var idCautionTextFuel = document.getElementById('caution-text-fuel');
+var idCaution = document.getElementById('caution');
+var idCautionTextPax = document.getElementById('caution-text-pax');
+var idCautionTextMaxOccupant = document.getElementById('caution-text-max-occupant');
+var idCautionTextBaggage = document.getElementById('caution-text-baggage');
+var idCautionTextFuel = document.getElementById('caution-text-fuel');
+
 
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- 
 // UPDATE FIGURE
@@ -263,13 +265,13 @@ function updateFigure() {
 
     // Limiter boxes
     // If two occupants 
-    // if (passengerWeight > 25) {
-    //     limiterBoxBaggage.style.display = "block"
-    //     limiterBoxFuel.style.display = "block"
-    // } else {
-    //     limiterBoxBaggage.style.display = ""
-    //     limiterBoxFuel.style.display = ""
-    // }
+    if (passengerWeight > 25) {
+        limiterBoxBaggage.style.display = "block"
+        limiterBoxFuel.style.display = "block"
+    } else {
+        limiterBoxBaggage.style.display = ""
+        limiterBoxFuel.style.display = ""
+    }
 
     // WARNINGS
     // Check Envelope
@@ -284,36 +286,43 @@ function updateFigure() {
         idWarningText.style.display = "none"
     }
 
-    // // CAUTION
-    // var flagCaution = checkCautions(pilotWeight, passengerWeight, baggageWeight, fuelVolume);
+    // CAUTION
+    var flagCaution = checkCautions(pilotWeight, passengerWeight, baggageWeight, fuelVolume);
 
-    // // if 2 occupants and baggage > 15kg
-    // if (flagCaution[0]) {
-    //     idCautionTextBaggage.style.display = "block"
-    // } else {
-    //     idCautionTextBaggage.style.display = "none"
-    // }
+    // if 2 occupants and baggage > 15kg
+    if (flagCaution[0]) {
+        idCautionTextBaggage.style.display = "block"
+    } else {
+        idCautionTextBaggage.style.display = "none"
+    }
 
-    // // if 2 occupants and fuel > 100L
-    // if (flagCaution[1]) {
-    //     idCautionTextFuel.style.display = "block"
-    // } else {
-    //     idCautionTextFuel.style.display = "none"
-    // }
+    // if 2 occupants and fuel > 100L
+    if (flagCaution[1]) {
+        idCautionTextFuel.style.display = "block"
+    } else {
+        idCautionTextFuel.style.display = "none"
+    }
 
-    // // if 2 occupants > 100kg
-    // if (flagCaution[2]) {
-    //     idCautionTextPax.style.display = "block"
-    // } else {
-    //     idCautionTextPax.style.display = "none"
-    // }
+    // if 2 occupants > 100kg
+    if (flagCaution[2]) {
+        idCautionTextPax.style.display = "block"
+    } else {
+        idCautionTextPax.style.display = "none"
+    }
 
-    // // if one warnings show title
-    // if (flagCaution[0] || flagCaution[1] || flagCaution[2]) {
-    //     idCaution.style.display = "grid"
-    // } else {
-    //     idCaution.style.display = "none"
-    // }
+    // if 1 occupants > 110kg
+    if (flagCaution[3]) {
+        idCautionTextMaxOccupant.style.display = "block"
+    } else {
+        idCautionTextMaxOccupant.style.display = "none"
+    }
+
+    // if one warnings show title
+    if (flagCaution[0] || flagCaution[1] || flagCaution[2] || flagCaution[3]) {
+        idCaution.style.display = "grid"
+    } else {
+        idCaution.style.display = "none"
+    }
 }
 
 // First update
@@ -372,26 +381,32 @@ function checkWarnings(dataResult) {
     return flagEnvelopeWarning
 }
 
-// function checkCautions(pilotWeight, passengerWeight, baggageWeight, fuelVolume) {
+function checkCautions(pilotWeight, passengerWeight, baggageWeight, fuelVolume) {
 
-//     var flagBaggageCaution = false;
-//     var flagFuelCaution = false;
-//     var flagTwoOccupantsCaution = false;
+    var flagBaggageCaution = false;
+    var flagFuelCaution = false;
+    var flagTwoOccupantsCaution = false;
+    var flagMaxOccupantsCaution = false;
 
-//     // flag baggage warning
-//     if (passengerWeight > 25 && baggageWeight > 15) {
-//         flagBaggageCaution = true;
-//     }
+    // flag baggage warning
+    if (passengerWeight > 25 && baggageWeight > 15) {
+        flagBaggageCaution = true;
+    }
 
-//     // flag fuel warning
-//     if (passengerWeight > 25 && fuelVolume > 100) {
-//         flagFuelCaution = true;
-//     }
+    // flag fuel warning
+    if (passengerWeight > 25 && fuelVolume > 100) {
+        flagFuelCaution = true;
+    }
 
-//     // flag two occupants warning
-//     if (pilotWeight + passengerWeight > 200) {
-//         flagTwoOccupantsCaution = true;
-//     }
+    // flag two occupants warning
+    if (pilotWeight + passengerWeight > 200) {
+        flagTwoOccupantsCaution = true;
+    }
 
-//     return [flagBaggageCaution, flagFuelCaution, flagTwoOccupantsCaution]
-// }
+    // flag two occupants warning
+    if ((pilotWeight > 110) || (passengerWeight > 110)) {
+        flagMaxOccupantsCaution = true;
+    }
+
+    return [flagBaggageCaution, flagFuelCaution, flagTwoOccupantsCaution, flagMaxOccupantsCaution]
+}
