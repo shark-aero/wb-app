@@ -9,6 +9,7 @@ const assets = [
     './js/vendor/nouislider.min.js',
     './js/vendor/d3.v6.min.js',
     './css/styles.css',
+    './css/styles_about.css',
     './css/nouislider.min.css',
     './img/logo_shark.svg',
     './img/Flag_of_France.svg',
@@ -18,7 +19,6 @@ const assets = [
     './img/google-icons/local_gas_station-24px.svg',
     './img/google-icons/airplanemode_active-24px.svg',
     './img/google-icons/luggage-24px.svg',
-    './img/google-icons/ballast-24px.svg',
 ];
 
 // install event
