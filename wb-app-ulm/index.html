@@ -157,8 +157,16 @@
     <!-- footer -->
     <div class="footer noselect">
         <div>version 2.3.0</div>
-        <div>All content copyright shark.aero, all rights reserved.</div>
+        <!-- <div>  All content copyright shark.aero, all rights reserved.</div> -->
+        <div id='copyright'>Copyright &copy shark.aero, all rights reserved.</div>
     </div>
+
+    <!-- year copyright -->
+    <script>
+        n = new Date();
+        y = n.getFullYear();
+        document.getElementById('copyright').innerHTML = 'Copyright &copy ' + y + ' shark.aero, all rights reserved.';
+    </script>
 
     <!-- Compiled and minified JavaScript -->
     <script src="./js/vendor/d3.v6.min.js"></script>
