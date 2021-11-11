@@ -1,6 +1,6 @@
 {
-    "name": "SHARK Aero W&B",
-    "short_name": "SHARK Aero WB",
+    "name": "SHARK Aero Weight and Balance ULM",
+    "short_name": "SHARK Aero WB ULM",
     "start_url": "./index.html",
     "display": "standalone",
     "background_color": "#ffffff",
