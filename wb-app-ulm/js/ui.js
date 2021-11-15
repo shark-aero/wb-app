@@ -31,6 +31,15 @@ var sliderBaggage = document.getElementById('slider-baggage');
 var limiterBoxBaggage = document.getElementById('limiter-box-baggage');
 var limiterBoxFuel = document.getElementById('limiter-box-fuel');
 
+// switch
+// 1 front / 0 rear
+// var switchBallast = document.getElementById("switch-ballast");
+// switchBallast.checked = true;
+// var switchPosition = 0;
+// labels
+// var switchFrontLabel = document.getElementById("front-label-ballast")
+// var switchRearLabel = document.getElementById("rear-label-ballast")
+
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- 
 // IMPORT STORED INPUTS
 // Aircraft weight and cg
@@ -99,7 +108,6 @@ noUiSlider.create(sliderPassenger, {
     },
 });
 
-
 // BAGGAGE
 noUiSlider.create(sliderBaggage, {
     start: [inputBaggage.value],
@@ -159,6 +167,30 @@ sliderPassenger.noUiSlider.on('update', function(values, handle) {
     var value = values[handle];
     inputPassenger.value = Math.round(value);
     localStorage.setItem("PassengerWeight", value);
+    // if two occupants
+    // if (value > twoOccupantWeight) {
+    //     // move ballast to front
+    //     // change font size and color for the adviced value
+    //     switchFrontLabel.style.fontWeight = "bold";
+    //     switchFrontLabel.style.color = "black";
+    //     switchRearLabel.style.fontWeight = "normal";
+    //     switchRearLabel.style.color = "grey";
+    //     // move switch
+    //     switchBallast.checked = false;
+    //     switchPosition = 1;
+
+
+    // } else {
+    //     // move ballast to rear
+    //     // change font size and color for the adviced value
+    //     switchRearLabel.style.fontWeight = "bold";
+    //     switchRearLabel.style.color = "black";
+    //     switchFrontLabel.style.fontWeight = "normal";
+    //     switchFrontLabel.style.color = "grey";
+    //     // move switch
+    //     switchBallast.checked = true;
+    //     switchPosition = 0;
+    // }
     updateFigure()
 });
 
@@ -214,3 +246,23 @@ inputBaggage.addEventListener('change', function() {
 inputFuel.addEventListener('change', function() {
     sliderFuel.noUiSlider.set([this.value, null]);
 });
+
+// // BALLAST
+// style = getComputedStyle(document.body)
+// switchBallast.addEventListener('change', function() {
+//     if (switchBallast.checked) {
+//         switchPosition = 0;
+//         switchRearLabel.style.fontWeight = "bold";
+//         switchRearLabel.style.color = "black";
+//         switchFrontLabel.style.fontWeight = "normal";
+//         switchFrontLabel.style.color = style.getPropertyValue('--third');
+//         updateFigure()
+//     } else {
+//         switchPosition = 1;
+//         switchFrontLabel.style.fontWeight = "bold";
+//         switchFrontLabel.style.color = "black";
+//         switchRearLabel.style.fontWeight = "normal";
+//         switchRearLabel.style.color = style.getPropertyValue('--third');
+//         updateFigure()
+//     }
+// });

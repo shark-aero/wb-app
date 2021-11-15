@@ -2,9 +2,13 @@
 // FIGURE
 var dataEnvelope = [
     { x: 17.5, y: 385 }, { x: 17.7, y: 490 },
-    { x: 19.35, y: 525 }, { x: 31.5, y: 525 },
+    { x: 22.9, y: 600 }, { x: 31.5, y: 600 },
     { x: 31.5, y: 487 }, { x: 27.7, y: 425 },
     { x: 17.5, y: 385 }
+];
+
+var dataULM = [
+    { x: 19.3545, y: 525 }, { x: 31.5, y: 525 }
 ];
 
 // Points
@@ -22,7 +26,7 @@ var dataResult = [
 
 // default empty
 var dataEmpty = { x: 14.5, y: 300 };
-const graph_domain = { x_min: 14, x_max: 33, y_min: 324, y_max: 550 };
+const graph_domain = { x_min: 14, x_max: 33, y_min: 324, y_max: 650 };
 const figure_size = { height: 350, x_margin: 40, y_margin: 30 };
 
 var figure_area = document.getElementById('figure_area');
@@ -89,6 +93,15 @@ var pathEnvelope = svg.append("path")
         .y(function(d) { return y_scale(d.y) })
     );
 
+// Add ULM line
+var lineULM = svg.append("line")
+    .attr('x1', x_scale(dataULM[0].x))
+    .attr('y1', y_scale(dataULM[0].y))
+    .attr('x2', x_scale(dataULM[1].x))
+    .attr('y2', y_scale(dataULM[1].y))
+    .attr("stroke", 'black')
+    .attr("stroke-width", 1.5)
+
 // Add weight line
 var lineResult = svg.append("line")
     .attr('x1', x_scale(dataResult[0].x))
@@ -122,6 +135,7 @@ var pointEmpty = svg.append("circle")
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- 
 // VARS 
 //weight
+// const ballastWeight = 5.9;
 
 // arms
 const armFuel = 689; //mm
@@ -129,6 +143,12 @@ const armPilotLight = 369; //mm
 const armPilotHeavy = 416; //mm
 const armPassenger = 1273; //mm
 const armBaggage = 1894; //mm
+// const armRearBallast = 2236; //mm
+// const armFrontBallast = -1403; //mm
+
+// moment
+// const ballastFrontMoment = armFrontBallast * ballastWeight;
+// const ballastRearMoment = armRearBallast * ballastWeight;
 
 // Default centrage
 const refmac = 114; //mm
@@ -167,7 +187,6 @@ var idCautionTextMaxOccupant = document.getElementById('caution-text-max-occupan
 var idCautionTextBaggage = document.getElementById('caution-text-baggage');
 var idCautionTextFuel = document.getElementById('caution-text-fuel');
 
-
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- 
 // UPDATE FIGURE
 
@@ -175,7 +194,7 @@ function updateFigure() {
     // get weights
     var emptyWeight = parseFloat(inputEmptyWeight.value);
     var fuelVolume = parseFloat(inputFuel.value);
-    var fuelWeight = fuelVolume * 0.7;
+    var fuelWeight = fuelVolume * 0.72;
     var pilotWeight = parseFloat(inputPilot.value);
     var passengerWeight = parseFloat(inputPassenger.value);
     var baggageWeight = parseFloat(inputBaggage.value);
@@ -183,20 +202,23 @@ function updateFigure() {
     // empty / start moment
     var startMoment = (parseFloat(inputStartCG.value) / 100 * mac + refmac) * emptyWeight
 
+    // ballast position
+    // ballastMoment = switchPosition * ballastFrontMoment + (1 - switchPosition) * ballastRearMoment;
+
     // pilot local arm
-    localArmPilot = coef_a * pilotWeight + coef_b;
+    localArmPilot = Math.min(armPilotHeavy, coef_a * pilotWeight + coef_b);
 
     // takeoff weight
-    var weightTO = emptyWeight + pilotWeight + passengerWeight + baggageWeight + fuelWeight;
+    var weightTO = emptyWeight + pilotWeight + passengerWeight + baggageWeight + fuelWeight; //+ ballastWeight;
     // zero fuel weight
-    var weightZF = emptyWeight + pilotWeight + passengerWeight + baggageWeight;
+    var weightZF = emptyWeight + pilotWeight + passengerWeight + baggageWeight; // + ballastWeight;
 
     // takeoff moment
     var momentTO = startMoment + fuelWeight * armFuel + pilotWeight * localArmPilot +
-        passengerWeight * armPassenger + baggageWeight * armBaggage;
+        passengerWeight * armPassenger + baggageWeight * armBaggage;// + ballastMoment;
     // zero fuel moment
     var momentZF = startMoment + pilotWeight * localArmPilot +
-        passengerWeight * armPassenger + baggageWeight * armBaggage;
+        passengerWeight * armPassenger + baggageWeight * armBaggage; //+ ballastMoment;
 
     // take off centerage
     var armTO = momentTO / weightTO;
@@ -244,6 +266,12 @@ function updateFigure() {
             .x(function(d) { return x_scale(d.x) })
             .y(function(d) { return y_scale(d.y) })
         );
+
+    lineULM
+        .attr('x1', x_scale(dataULM[0].x))
+        .attr('y1', y_scale(dataULM[0].y))
+        .attr('x2', x_scale(dataULM[1].x))
+        .attr('y2', y_scale(dataULM[1].y))
 
     lineResult
         .attr('x1', x_scale(dataResult[0].x))
