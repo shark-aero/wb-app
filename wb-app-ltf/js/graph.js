@@ -193,7 +193,7 @@ function updateFigure() {
     ballastMoment = switchPosition * ballastFrontMoment + (1 - switchPosition) * ballastRearMoment;
 
     // pilot local arm
-    localArmPilot = coef_a * pilotWeight + coef_b;
+    localArmPilot = Math.min(armPilotHeavy, coef_a * pilotWeight + coef_b);
 
     // takeoff weight
     var weightTO = emptyWeight + pilotWeight + passengerWeight + baggageWeight + ballastWeight + fuelWeight;
