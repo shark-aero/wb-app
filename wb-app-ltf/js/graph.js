@@ -122,7 +122,7 @@ var pointEmpty = svg.append("circle")
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- 
 // VARS 
 //weight
-const ballastWeight = 6;
+const ballastWeight = 5.9;
 
 // arms
 const armFuel = 689; //mm
@@ -130,7 +130,7 @@ const armPilotLight = 369; //mm
 const armPilotHeavy = 416; //mm
 const armPassenger = 1273; //mm
 const armBaggage = 1894; //mm
-const armRearBallast = 2267; //mm
+const armRearBallast = 2236; //mm
 const armFrontBallast = -1403; //mm
 
 // moment
