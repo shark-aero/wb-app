@@ -134,6 +134,8 @@ var pointEmpty = svg.append("circle")
 
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- 
 // VARS 
+// density
+const fuelDensity = 0.7;
 //weight
 // const ballastWeight = 5.9;
 
@@ -194,7 +196,7 @@ function updateFigure() {
     // get weights
     var emptyWeight = parseFloat(inputEmptyWeight.value);
     var fuelVolume = parseFloat(inputFuel.value);
-    var fuelWeight = fuelVolume * 0.72;
+    var fuelWeight = fuelVolume * fuelDensity;
     var pilotWeight = parseFloat(inputPilot.value);
     var passengerWeight = parseFloat(inputPassenger.value);
     var baggageWeight = parseFloat(inputBaggage.value);
