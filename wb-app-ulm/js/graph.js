@@ -98,7 +98,7 @@ var pathEnvelope = svg.append("path")
     .y(function(d) { return y_scale(d.y) })
     );
     
-    // Add LTF path
+// Add LTF path
 var pathEnvelopeLTF = svg.append("path")
     .datum(dataEnvelopeLTF)
     .attr("fill", "none")
@@ -139,6 +139,24 @@ var pointEmpty = svg.append("circle")
     .attr("cy", y_scale(dataEmpty.y))
     .attr("fill", 'black')
     .attr("r", 2.5);
+
+// ULM label
+var labelULM = svg
+    .append("text")
+    .attr("text-anchor", "start")
+    .attr("font-size", "0.75em")
+    .attr("x", x_scale(19.5))
+    .attr("y", y_scale(510))
+    .text("ULM");// ULM label
+
+// ULM label
+var labelLTF = svg
+    .append("text")
+    .attr("text-anchor", "start")
+    .attr("font-size", "0.75em")
+    .attr("x", x_scale(23))
+    .attr("y", y_scale(585))
+    .text("LTF-UL");
 
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- 
 // VARS 
@@ -269,7 +287,7 @@ function updateFigure() {
         .tickValues(y_ticks);
     svg_y_axis.call(y_axis);
 
-    // Update points, line and envelope
+    // Update points, line, envelope, label
     pathEnvelope
         .datum(dataEnvelope)
         .attr("d", d3.line()
@@ -283,6 +301,14 @@ function updateFigure() {
             .x(function(d) { return x_scale(d.x) })
             .y(function(d) { return y_scale(d.y) })
         );
+
+    labelULM
+        .attr("x", x_scale(19.5))
+        .attr("y", y_scale(510))
+
+    labelLTF
+        .attr("x", x_scale(23))
+        .attr("y", y_scale(585))
 
     lineResult
         .attr('x1', x_scale(dataResult[0].x))
