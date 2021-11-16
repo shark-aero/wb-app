@@ -2,14 +2,9 @@
 // FIGURE
 var dataEnvelope = [
     { x: 17.5, y: 385 }, { x: 17.7, y: 490 },
-    { x: 19.35, y: 525 }, { x: 31.5, y: 525 },
+    { x: 22.9, y: 600 }, { x: 31.5, y: 600 },
     { x: 31.5, y: 487 }, { x: 27.7, y: 425 },
     { x: 17.5, y: 385 }
-];
-
-var dataEnvelopeLTF = [
-    { x: 19.35, y: 525 }, { x: 22.9, y: 600 }, 
-    { x: 31.5, y: 600 }, { x: 31.5, y: 525 },
 ];
 
 var dataULM = [
@@ -98,19 +93,18 @@ var pathEnvelope = svg.append("path")
     .y(function(d) { return y_scale(d.y) })
     );
     
-// Add LTF path
-var pathEnvelopeLTF = svg.append("path")
-    .datum(dataEnvelopeLTF)
-    .attr("fill", "none")
-    .attr("stroke", "black")
+// Add ULM line
+var lineULM = svg.append("line")
+    .attr('x1', x_scale(dataULM[0].x))
+    .attr('y1', y_scale(dataULM[0].y))
+    .attr('x2', x_scale(dataULM[1].x))
+    .attr('y2', y_scale(dataULM[1].y))
+    .attr("stroke", 'black')
     .attr("stroke-dasharray", 4)
     .attr("stroke-width", 1.5)
-    .attr("d", d3.line()
-        .x(function(d) { return x_scale(d.x) })
-        .y(function(d) { return y_scale(d.y) })
-    );
 
-// Add weight line
+    
+    // Add weight line
 var lineResult = svg.append("line")
     .attr('x1', x_scale(dataResult[0].x))
     .attr('y1', y_scale(dataResult[0].y))
@@ -160,6 +154,8 @@ var labelLTF = svg
 
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- 
 // VARS 
+//MTOW
+const ulmMTOW = 525;
 // density
 const fuelDensity = 0.7;
 //weight
@@ -211,9 +207,10 @@ var idWarningText = document.getElementById('warning-text');
 // id cautions
 var idCaution = document.getElementById('caution');
 var idCautionTextPax = document.getElementById('caution-text-pax');
+var idCautionULMMTOW = document.getElementById('caution-text-ulm-mtow');
 var idCautionTextMaxOccupant = document.getElementById('caution-text-max-occupant');
 var idCautionTextBaggage = document.getElementById('caution-text-baggage');
-var idCautionTextFuel = document.getElementById('caution-text-fuel');
+var idCautionTextFuel = document.getElementById('caution-text-fuel')
 
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- 
 // UPDATE FIGURE
@@ -294,13 +291,12 @@ function updateFigure() {
             .x(function(d) { return x_scale(d.x) })
             .y(function(d) { return y_scale(d.y) })
         );
-    
-    pathEnvelopeLTF
-        .datum(dataEnvelopeLTF)
-        .attr("d", d3.line()
-            .x(function(d) { return x_scale(d.x) })
-            .y(function(d) { return y_scale(d.y) })
-        );
+
+    lineULM
+        .attr('x1', x_scale(dataULM[0].x))
+        .attr('y1', y_scale(dataULM[0].y))
+        .attr('x2', x_scale(dataULM[1].x))
+        .attr('y2', y_scale(dataULM[1].y))
 
     labelULM
         .attr("x", x_scale(19.5))
@@ -382,8 +378,17 @@ function updateFigure() {
         idCautionTextMaxOccupant.style.display = "none"
     }
 
+    // if mtow > ulm mtow 
+    if (weightTO > ulmMTOW) {
+        idCautionULMMTOW.style.display = "block"
+        flagCaution[4] = true;
+    } else {
+        idCautionULMMTOW.style.display = "none"
+        flagCaution[4] = false;
+    }
+
     // if one warnings show title
-    if (flagCaution[0] || flagCaution[1] || flagCaution[2] || flagCaution[3]) {
+    if (flagCaution[0] || flagCaution[1] || flagCaution[2] || flagCaution[3] || flagCaution[4]) {
         idCaution.style.display = "grid"
     } else {
         idCaution.style.display = "none"
