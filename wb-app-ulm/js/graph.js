@@ -2,9 +2,14 @@
 // FIGURE
 var dataEnvelope = [
     { x: 17.5, y: 385 }, { x: 17.7, y: 490 },
-    { x: 22.9, y: 600 }, { x: 31.5, y: 600 },
+    { x: 19.35, y: 525 }, { x: 31.5, y: 525 },
     { x: 31.5, y: 487 }, { x: 27.7, y: 425 },
     { x: 17.5, y: 385 }
+];
+
+var dataEnvelopeLTF = [
+    { x: 19.35, y: 525 }, { x: 22.9, y: 600 }, 
+    { x: 31.5, y: 600 }, { x: 31.5, y: 525 },
 ];
 
 var dataULM = [
@@ -89,18 +94,21 @@ var pathEnvelope = svg.append("path")
     .attr("stroke", "black")
     .attr("stroke-width", 1.5)
     .attr("d", d3.line()
+    .x(function(d) { return x_scale(d.x) })
+    .y(function(d) { return y_scale(d.y) })
+    );
+    
+    // Add LTF path
+var pathEnvelopeLTF = svg.append("path")
+    .datum(dataEnvelopeLTF)
+    .attr("fill", "none")
+    .attr("stroke", "black")
+    .attr("stroke-dasharray", 4)
+    .attr("stroke-width", 1.5)
+    .attr("d", d3.line()
         .x(function(d) { return x_scale(d.x) })
         .y(function(d) { return y_scale(d.y) })
     );
-
-// Add ULM line
-var lineULM = svg.append("line")
-    .attr('x1', x_scale(dataULM[0].x))
-    .attr('y1', y_scale(dataULM[0].y))
-    .attr('x2', x_scale(dataULM[1].x))
-    .attr('y2', y_scale(dataULM[1].y))
-    .attr("stroke", 'black')
-    .attr("stroke-width", 1.5)
 
 // Add weight line
 var lineResult = svg.append("line")
@@ -268,12 +276,13 @@ function updateFigure() {
             .x(function(d) { return x_scale(d.x) })
             .y(function(d) { return y_scale(d.y) })
         );
-
-    lineULM
-        .attr('x1', x_scale(dataULM[0].x))
-        .attr('y1', y_scale(dataULM[0].y))
-        .attr('x2', x_scale(dataULM[1].x))
-        .attr('y2', y_scale(dataULM[1].y))
+    
+    pathEnvelopeLTF
+        .datum(dataEnvelopeLTF)
+        .attr("d", d3.line()
+            .x(function(d) { return x_scale(d.x) })
+            .y(function(d) { return y_scale(d.y) })
+        );
 
     lineResult
         .attr('x1', x_scale(dataResult[0].x))
