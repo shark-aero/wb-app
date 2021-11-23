@@ -7,17 +7,23 @@ var dataEnvelope = [
     { x: 17.5, y: 385 }
 ];
 
-var dataULM = [
-    { x: 19.3545, y: 525 }, { x: 31.5, y: 525 }
+var dataEnvelopeULM = [
+    { x: 16.5, y: 385 }, 
+    { x: 16.7, y: 490 },
+    { x: 19.354545, y: 525 }, 
+    { x: 32.5, y: 525 },
+    { x: 32.5, y: 487 }, 
+    { x: 27.7, y: 425 },
+    { x: 16.5, y: 385 }
 ];
 
 // Points
-var pt_O = dataEnvelope[0];
-var pt_P = dataEnvelope[1];
-var pt_K = dataEnvelope[2];
-var pt_L = dataEnvelope[3];
-var pt_M = dataEnvelope[4];
-var pt_N = dataEnvelope[5];
+var pt_O = dataEnvelopeULM[0];
+var pt_P = dataEnvelopeULM[1];
+var pt_K = dataEnvelopeULM[2];
+var pt_L = dataEnvelopeULM[3];
+var pt_M = dataEnvelopeULM[4];
+var pt_N = dataEnvelopeULM[5];
 
 // default config
 var dataResult = [
@@ -87,21 +93,31 @@ var pathEnvelope = svg.append("path")
     .datum(dataEnvelope)
     .attr("fill", "none")
     .attr("stroke", "black")
-    .attr("stroke-width", 1.5)
+    .attr("stroke-width", 1.0)
+    .attr("stroke-dasharray", 4)
     .attr("d", d3.line()
     .x(function(d) { return x_scale(d.x) })
     .y(function(d) { return y_scale(d.y) })
     );
     
 // Add ULM line
-var lineULM = svg.append("line")
-    .attr('x1', x_scale(dataULM[0].x))
-    .attr('y1', y_scale(dataULM[0].y))
-    .attr('x2', x_scale(dataULM[1].x))
-    .attr('y2', y_scale(dataULM[1].y))
-    .attr("stroke", 'black')
-    .attr("stroke-dasharray", 4)
+var pathEnvelopeULM = svg.append("path")
+    .datum(dataEnvelopeULM)
+    .attr("fill", "none")
+    .attr("stroke", "black")
     .attr("stroke-width", 1.5)
+    .attr("d", d3.line()
+    .x(function(d) { return x_scale(d.x) })
+    .y(function(d) { return y_scale(d.y) })
+    );
+    
+// var lineULM = svg.append("line")
+//     .attr('x1', x_scale(dataULM[0].x))
+//     .attr('y1', y_scale(dataULM[0].y))
+//     .attr('x2', x_scale(dataULM[1].x))
+//     .attr('y2', y_scale(dataULM[1].y))
+//     .attr("stroke", 'black')
+//     .attr("stroke-width", 1.5)
 
     
     // Add weight line
@@ -156,6 +172,8 @@ var labelLTF = svg
 // VARS 
 //MTOW
 const ulmMTOW = 525;
+const rearCGULM = 32.5;
+const ltfMTOW = 600;
 // density
 const fuelDensity = 0.7;
 //weight
@@ -203,6 +221,8 @@ var idLimiterBoxFuel = document.getElementById('limiter-box-fuel');
 
 // id warings
 var idWarningText = document.getElementById('warning-text');
+var idWarningMTOW = document.getElementById('warning-mtow');
+var idWarningRearCG = document.getElementById('warning-rear-cg');
 
 // id cautions
 var idCaution = document.getElementById('caution');
@@ -291,13 +311,19 @@ function updateFigure() {
             .x(function(d) { return x_scale(d.x) })
             .y(function(d) { return y_scale(d.y) })
         );
+    pathEnvelopeULM
+        .datum(dataEnvelopeULM)
+        .attr("d", d3.line()
+            .x(function(d) { return x_scale(d.x) })
+            .y(function(d) { return y_scale(d.y) })
+        );
 
-    lineULM
-        .attr('x1', x_scale(dataULM[0].x))
-        .attr('y1', y_scale(dataULM[0].y))
-        .attr('x2', x_scale(dataULM[1].x))
-        .attr('y2', y_scale(dataULM[1].y))
-
+    // lineULM
+    //     .attr('x1', x_scale(dataULM[0].x))
+    //     .attr('y1', y_scale(dataULM[0].y))
+    //     .attr('x2', x_scale(dataULM[1].x))
+    //     .attr('y2', y_scale(dataULM[1].y))
+        
     labelULM
         .attr("x", x_scale(19.5))
         .attr("y", y_scale(510))
@@ -338,13 +364,27 @@ function updateFigure() {
     // Check Envelope
     var flagwarnings = checkWarnings(dataResult);
     if (flagwarnings) {
-        pathEnvelope.attr("stroke", "red")
-            .attr("stroke-width", 2.0)
+        pathEnvelopeULM
+            // .attr("stroke", "red")
+            .attr("stroke-width", 1.5)
         idWarningText.style.display = "block"
     } else {
-        pathEnvelope.attr("stroke", "black")
+        pathEnvelopeULM 
+            // .attr("stroke", "black")
             .attr("stroke-width", 1.5)
         idWarningText.style.display = "none"
+    }
+
+    if (weightTO > ltfMTOW || weightZF > ltfMTOW){
+        idWarningMTOW.style.display = "block"
+    } else {
+        idWarningMTOW.style.display = "none"
+    }
+
+    if (centerageTO*100 > rearCGULM || centerageZF*100 > rearCGULM){
+        idWarningRearCG.style.display = "block"
+    } else {
+        idWarningRearCG.style.display = "none"
     }
 
     // CAUTION
@@ -400,12 +440,20 @@ updateFigure()
 
 function checkEnvelope(weight, cg) {
     // check line KL
-    if (weight > pt_K.y) {
+    // if (weight > pt_K.y) {
+    //     return false
+    // }
+
+    // // check line LM
+    // if (cg > pt_L.x) {
+    //     return false
+    // }
+    if (weight > 600) {
         return false
     }
 
     // check line LM
-    if (cg > pt_L.x) {
+    if (cg > 32.5) {
         return false
     }
 
@@ -443,11 +491,9 @@ function checkEnvelope(weight, cg) {
 function checkWarnings(dataResult) {
     // flag envelope warning
     var flagEnvelopeWarning = false;
-
     if (!checkEnvelope(dataResult[1].y, dataResult[1].x) || !checkEnvelope(dataResult[0].y, dataResult[0].x)) {
         flagEnvelopeWarning = true;
     }
-
     return flagEnvelopeWarning
 }
 
