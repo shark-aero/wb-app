@@ -9,7 +9,7 @@ var passengerWeightDefault = 0;
 var baggageWeightDefault = 0;
 
 var paxMaxWeight = 200;
-var occupantMaxWeight = 130;
+var occupantMaxWeight = 120;
 var twoOccupantWeight = 25;
 
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- 
@@ -85,7 +85,7 @@ noUiSlider.create(sliderPilot, {
     pips: {
         // mode: 'range',
         mode: 'values',
-        values: [60, 70, 80, 90, 100, 110, 120, 130],
+        values: [60, 70, 80, 90, 100, 110, 120],
         density: 6,
     },
 });
