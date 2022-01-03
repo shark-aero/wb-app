@@ -29,9 +29,14 @@ html {
     /* Non-prefixed version, currently supported by Chrome and Opera */
 }
 
-body {
+html, body {
     background-color: #f5f5f5;
+    height: 100%;
     margin: 0;
+}
+
+.content {
+    min-height: 100%;
 }
 
 
@@ -295,7 +300,7 @@ input[type=checkbox]:checked:not(:disabled)~.lever:active::before {
     background: var(--third);
     height: 0.65rem;
     width: 0%;
-    transition: width 0.3s;
+    transition: width 0.2s;
     float: right;
     position: absolute;
     border-radius: 3px;
@@ -307,7 +312,7 @@ input[type=checkbox]:checked:not(:disabled)~.lever:active::before {
     background: var(--third);
     height: 0.65rem;
     width: 0%;
-    transition: width 0.3s;
+    transition: width 0.2s;
     float: right;
     position: absolute;
     border-radius: 3px;
@@ -454,4 +459,6 @@ label {
     padding-left: 2.5%;
     padding-right: 2.5%;
     margin-top: 5px;
+    height: 2rem;
+    margin-top: -2rem;
 }
