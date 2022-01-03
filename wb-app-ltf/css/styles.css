@@ -294,25 +294,25 @@ input[type=checkbox]:checked:not(:disabled)~.lever:active::before {
 #limiter-box-baggage {
     background: var(--third);
     height: 0.65rem;
-    width: 40%;
+    width: 0%;
+    transition: width 0.3s;
     float: right;
     position: absolute;
     border-radius: 3px;
     top: 0.05rem;
     right: 0;
-    display: none;
 }
 
 #limiter-box-fuel {
     background: var(--third);
     height: 0.65rem;
-    width: 33.3333%;
+    width: 0%;
+    transition: width 0.3s;
     float: right;
     position: absolute;
     border-radius: 3px;
     top: 0.05rem;
     right: 0;
-    display: none;
 }
 
 .noUi-horizontal {

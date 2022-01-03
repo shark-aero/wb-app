@@ -353,11 +353,11 @@ function updateFigure() {
     // Limiter boxes
     // If two occupants 
     if (passengerWeight > 25) {
-        limiterBoxBaggage.style.display = "block"
-        limiterBoxFuel.style.display = "block"
+        limiterBoxBaggage.style.width = '40%'
+        limiterBoxFuel.style.width = '33.3333%'
     } else {
-        limiterBoxBaggage.style.display = ""
-        limiterBoxFuel.style.display = ""
+        limiterBoxBaggage.style.width = '0%'
+        limiterBoxFuel.style.width = '0%'
     }
 
     // WARNINGS
@@ -365,7 +365,6 @@ function updateFigure() {
     var flagwarnings = checkWarnings(dataResult);
     if (flagwarnings) {
         pathEnvelopeULM
-            // .attr("stroke", "red")
             .attr("stroke-width", 1.5)
         idWarningText.style.display = "block"
     } else {
