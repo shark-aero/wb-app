@@ -1,4 +1,4 @@
-const staticCacheName = 'site-static-v2.9.0';
+const staticCacheName = 'site-static-v2.9.2';
 const assets = [
     './',
     './index.html',
@@ -66,4 +66,4 @@ self.addEventListener('message', function(event) {
     }
 });
 
-//
+/////
