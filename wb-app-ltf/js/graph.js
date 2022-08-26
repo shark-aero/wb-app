@@ -70,6 +70,15 @@ var svg = d3.select("#figure_area")
     .attr("width", figure_size.width)
     .attr("height", figure_size.height)
 
+// Title
+svg.append("text")
+    .attr("text-anchor", "middle")
+    .attr("text-decoration", "underline")
+    .attr("font-family", " -apple-system, BlinkMacSystemFont, Roboto, Oxygen-Sans, Ubuntu, Cantarell, sans-serif")
+    .attr("x", figure_size.width / 2)
+    .attr("y", (figure_size.y_margin + 6))
+    .text("CG Flight Envelope");
+
 // X scale and Axis
 var x_scale = d3.scaleLinear()
     .domain([graph_domain.x_min, graph_domain.x_max])

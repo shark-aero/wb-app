@@ -1,20 +1,60 @@
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- 
 // FIGURE
-var dataEnvelope = [
-    { x: 17.5, y: 385 }, { x: 17.7, y: 490 },
-    { x: 22.9, y: 600 }, { x: 31.5, y: 600 },
-    { x: 31.5, y: 487 }, { x: 27.7, y: 425 },
-    { x: 17.5, y: 385 }
+var dataEnvelope = [{
+        x: 17.5,
+        y: 385
+    }, {
+        x: 17.7,
+        y: 490
+    },
+    {
+        x: 22.9,
+        y: 600
+    }, {
+        x: 31.5,
+        y: 600
+    },
+    {
+        x: 31.5,
+        y: 487
+    }, {
+        x: 27.7,
+        y: 425
+    },
+    {
+        x: 17.5,
+        y: 385
+    }
 ];
 
-var dataEnvelopeULM = [
-    { x: 16.5, y: 385 }, 
-    { x: 16.7, y: 490 },
-    { x: 19.354545, y: 525 }, 
-    { x: 32.5, y: 525 },
-    { x: 32.5, y: 487 }, 
-    { x: 27.7, y: 425 },
-    { x: 16.5, y: 385 }
+var dataEnvelopeULM = [{
+        x: 16.5,
+        y: 385
+    },
+    {
+        x: 16.7,
+        y: 490
+    },
+    {
+        x: 19.354545,
+        y: 525
+    },
+    {
+        x: 32.5,
+        y: 525
+    },
+    {
+        x: 32.5,
+        y: 487
+    },
+    {
+        x: 27.7,
+        y: 425
+    },
+    {
+        x: 16.5,
+        y: 385
+    }
 ];
 
 // Points
@@ -26,14 +66,30 @@ var pt_M = dataEnvelopeULM[4];
 var pt_N = dataEnvelopeULM[5];
 
 // default config
-var dataResult = [
-    { x: 20, y: 400 }, { x: 26, y: 500 },
-];
+var dataResult = [{
+    x: 20,
+    y: 400
+}, {
+    x: 26,
+    y: 500
+}, ];
 
 // default empty
-var dataEmpty = { x: 14.5, y: 300 };
-const graph_domain = { x_min: 14, x_max: 33, y_min: 324, y_max: 650 };
-const figure_size = { height: 350, x_margin: 40, y_margin: 30 };
+var dataEmpty = {
+    x: 14.5,
+    y: 300
+};
+const graph_domain = {
+    x_min: 14,
+    x_max: 33,
+    y_min: 324,
+    y_max: 650
+};
+const figure_size = {
+    height: 350,
+    x_margin: 40,
+    y_margin: 30
+};
 
 var figure_area = document.getElementById('figure_area');
 figure_size.width = Math.min(450, figure_area.offsetWidth);
@@ -43,6 +99,15 @@ var svg = d3.select("#figure_area")
     .append("svg")
     .attr("width", figure_size.width)
     .attr("height", figure_size.height)
+
+// Title
+svg.append("text")
+    .attr("text-anchor", "middle")
+    .attr("text-decoration", "underline")
+    .attr("font-family", " -apple-system, BlinkMacSystemFont, Roboto, Oxygen-Sans, Ubuntu, Cantarell, sans-serif")
+    .attr("x", figure_size.width / 2)
+    .attr("y", (figure_size.y_margin + 6))
+    .text("CG Flight Envelope");
 
 // X scale and Axis
 var x_scale = d3.scaleLinear()
@@ -96,10 +161,14 @@ var pathEnvelope = svg.append("path")
     .attr("stroke-width", 1.0)
     .attr("stroke-dasharray", 4)
     .attr("d", d3.line()
-    .x(function(d) { return x_scale(d.x) })
-    .y(function(d) { return y_scale(d.y) })
+        .x(function(d) {
+            return x_scale(d.x)
+        })
+        .y(function(d) {
+            return y_scale(d.y)
+        })
     );
-    
+
 // Add ULM line
 var pathEnvelopeULM = svg.append("path")
     .datum(dataEnvelopeULM)
@@ -107,10 +176,14 @@ var pathEnvelopeULM = svg.append("path")
     .attr("stroke", "black")
     .attr("stroke-width", 1.5)
     .attr("d", d3.line()
-    .x(function(d) { return x_scale(d.x) })
-    .y(function(d) { return y_scale(d.y) })
+        .x(function(d) {
+            return x_scale(d.x)
+        })
+        .y(function(d) {
+            return y_scale(d.y)
+        })
     );
-    
+
 // var lineULM = svg.append("line")
 //     .attr('x1', x_scale(dataULM[0].x))
 //     .attr('y1', y_scale(dataULM[0].y))
@@ -119,8 +192,8 @@ var pathEnvelopeULM = svg.append("path")
 //     .attr("stroke", 'black')
 //     .attr("stroke-width", 1.5)
 
-    
-    // Add weight line
+
+// Add weight line
 var lineResult = svg.append("line")
     .attr('x1', x_scale(dataResult[0].x))
     .attr('y1', y_scale(dataResult[0].y))
@@ -157,7 +230,7 @@ var labelULM = svg
     .attr("font-size", "0.75em")
     .attr("x", x_scale(19.5))
     .attr("y", y_scale(510))
-    .text("ULM");// ULM label
+    .text("ULM"); // ULM label
 
 // ULM label
 var labelLTF = svg
@@ -260,7 +333,7 @@ function updateFigure() {
 
     // takeoff moment
     var momentTO = startMoment + fuelWeight * armFuel + pilotWeight * localArmPilot +
-        passengerWeight * armPassenger + baggageWeight * armBaggage;// + ballastMoment;
+        passengerWeight * armPassenger + baggageWeight * armBaggage; // + ballastMoment;
     // zero fuel moment
     var momentZF = startMoment + pilotWeight * localArmPilot +
         passengerWeight * armPassenger + baggageWeight * armBaggage; //+ ballastMoment;
@@ -280,11 +353,20 @@ function updateFigure() {
     idCenterageOutputZF.innerHTML = (centerageZF * 100).toFixed(1) + " %";
     idWeightFuel.innerHTML = fuelWeight.toFixed(0) + " kg";
 
-    dataResult = [{ x: centerageZF * 100, y: weightZF },
-        { x: centerageTO * 100, y: weightTO }
+    dataResult = [{
+            x: centerageZF * 100,
+            y: weightZF
+        },
+        {
+            x: centerageTO * 100,
+            y: weightTO
+        }
     ];
 
-    dataEmpty = { x: inputStartCG.value, y: emptyWeight };
+    dataEmpty = {
+        x: inputStartCG.value,
+        y: emptyWeight
+    };
 
     // adjust x axis scale
     var xtop = d3.max([graph_domain.x_max, dataResult[1].x]);
@@ -308,14 +390,22 @@ function updateFigure() {
     pathEnvelope
         .datum(dataEnvelope)
         .attr("d", d3.line()
-            .x(function(d) { return x_scale(d.x) })
-            .y(function(d) { return y_scale(d.y) })
+            .x(function(d) {
+                return x_scale(d.x)
+            })
+            .y(function(d) {
+                return y_scale(d.y)
+            })
         );
     pathEnvelopeULM
         .datum(dataEnvelopeULM)
         .attr("d", d3.line()
-            .x(function(d) { return x_scale(d.x) })
-            .y(function(d) { return y_scale(d.y) })
+            .x(function(d) {
+                return x_scale(d.x)
+            })
+            .y(function(d) {
+                return y_scale(d.y)
+            })
         );
 
     // lineULM
@@ -323,7 +413,7 @@ function updateFigure() {
     //     .attr('y1', y_scale(dataULM[0].y))
     //     .attr('x2', x_scale(dataULM[1].x))
     //     .attr('y2', y_scale(dataULM[1].y))
-        
+
     labelULM
         .attr("x", x_scale(19.5))
         .attr("y", y_scale(510))
@@ -368,19 +458,19 @@ function updateFigure() {
             .attr("stroke-width", 1.5)
         idWarningText.style.display = "block"
     } else {
-        pathEnvelopeULM 
+        pathEnvelopeULM
             // .attr("stroke", "black")
             .attr("stroke-width", 1.5)
         idWarningText.style.display = "none"
     }
 
-    if (weightTO > ltfMTOW || weightZF > ltfMTOW){
+    if (weightTO > ltfMTOW || weightZF > ltfMTOW) {
         idWarningMTOW.style.display = "block"
     } else {
         idWarningMTOW.style.display = "none"
     }
 
-    if (centerageTO*100 > rearCGULM || centerageZF*100 > rearCGULM){
+    if (centerageTO * 100 > rearCGULM || centerageZF * 100 > rearCGULM) {
         idWarningRearCG.style.display = "block"
     } else {
         idWarningRearCG.style.display = "none"
