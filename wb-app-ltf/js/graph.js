@@ -1,10 +1,30 @@
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- 
 // FIGURE
-var dataEnvelope = [
-    { x: 17.5, y: 385 }, { x: 17.7, y: 490 },
-    { x: 22.9, y: 600 }, { x: 31.5, y: 600 },
-    { x: 31.5, y: 487 }, { x: 27.7, y: 425 },
-    { x: 17.5, y: 385 }
+var dataEnvelope = [{
+        x: 17.5,
+        y: 385
+    }, {
+        x: 17.7,
+        y: 490
+    },
+    {
+        x: 22.9,
+        y: 600
+    }, {
+        x: 31.5,
+        y: 600
+    },
+    {
+        x: 31.5,
+        y: 487
+    }, {
+        x: 27.7,
+        y: 425
+    },
+    {
+        x: 17.5,
+        y: 385
+    }
 ];
 
 // Points
@@ -16,14 +36,30 @@ var pt_M = dataEnvelope[4];
 var pt_N = dataEnvelope[5];
 
 // default config
-var dataResult = [
-    { x: 20, y: 400 }, { x: 26, y: 500 },
-];
+var dataResult = [{
+    x: 20,
+    y: 400
+}, {
+    x: 26,
+    y: 500
+}, ];
 
 // default empty
-var dataEmpty = { x: 14.5, y: 300 };
-const graph_domain = { x_min: 14, x_max: 33, y_min: 324, y_max: 650 };
-const figure_size = { height: 350, x_margin: 40, y_margin: 30 };
+var dataEmpty = {
+    x: 14.5,
+    y: 300
+};
+const graph_domain = {
+    x_min: 14,
+    x_max: 33,
+    y_min: 324,
+    y_max: 650
+};
+const figure_size = {
+    height: 350,
+    x_margin: 40,
+    y_margin: 30
+};
 
 var figure_area = document.getElementById('figure_area');
 figure_size.width = Math.min(450, figure_area.offsetWidth);
@@ -85,8 +121,12 @@ var pathEnvelope = svg.append("path")
     .attr("stroke", "black")
     .attr("stroke-width", 1.5)
     .attr("d", d3.line()
-        .x(function(d) { return x_scale(d.x) })
-        .y(function(d) { return y_scale(d.y) })
+        .x(function(d) {
+            return x_scale(d.x)
+        })
+        .y(function(d) {
+            return y_scale(d.y)
+        })
     );
 
 // Add weight line
@@ -122,7 +162,7 @@ var pointEmpty = svg.append("circle")
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- 
 // VARS 
 //weight
-const ballastWeight = 5.9;
+const ballastWeight = 6;
 
 // arms
 const armFuel = 689; //mm
@@ -222,11 +262,20 @@ function updateFigure() {
     idCenterageOutputZF.innerHTML = (centerageZF * 100).toFixed(1) + " %";
     idWeightFuel.innerHTML = fuelWeight.toFixed(0) + " kg";
 
-    dataResult = [{ x: centerageZF * 100, y: weightZF },
-        { x: centerageTO * 100, y: weightTO }
+    dataResult = [{
+            x: centerageZF * 100,
+            y: weightZF
+        },
+        {
+            x: centerageTO * 100,
+            y: weightTO
+        }
     ];
 
-    dataEmpty = { x: inputStartCG.value, y: emptyWeight };
+    dataEmpty = {
+        x: inputStartCG.value,
+        y: emptyWeight
+    };
 
     // adjust x axis scale
     var xtop = d3.max([graph_domain.x_max, dataResult[1].x]);
@@ -250,8 +299,12 @@ function updateFigure() {
     pathEnvelope
         .datum(dataEnvelope)
         .attr("d", d3.line()
-            .x(function(d) { return x_scale(d.x) })
-            .y(function(d) { return y_scale(d.y) })
+            .x(function(d) {
+                return x_scale(d.x)
+            })
+            .y(function(d) {
+                return y_scale(d.y)
+            })
         );
 
     lineResult
