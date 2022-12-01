@@ -14,7 +14,8 @@ html {
     font-size: 14px;
 }
 
-html, body {
+html,
+body {
     background-color: #f5f5f5;
     height: 100%;
     margin: 0;
@@ -69,10 +70,11 @@ nav a {
 
 .container {
     width: 85%;
-    max-width: 1100px;
+    max-width: 700px;
     margin: auto;
     display: grid;
     align-items: center;
+    row-gap: 10px;
 }
 
 b {
@@ -86,7 +88,7 @@ b {
     align-items: center;
     row-gap: 10px;
     column-gap: 10px;
-    max-width: 700px;
+    width: 100%;
     margin: auto;
     background-color: lightgray;
     color: black;
@@ -114,6 +116,7 @@ b {
     .company-name {
         display: none;
     }
+
     .button {
         flex-direction: column;
     }
