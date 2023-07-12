@@ -1,4 +1,4 @@
-const staticCacheName = 'site-static-v2.10.7';
+const staticCacheName = 'site-static-v2.11.0';
 const assets = [
     './',
     './index.html',
@@ -48,7 +48,7 @@ self.addEventListener('activate', evt => {
 
 // fetch event
 self.addEventListener('fetch', evt => {
-    console.log('fetch event', evt);
+    // console.log('fetch event', evt);
     evt.respondWith(
         caches.match(evt.request).then(cacheRes => {
             return cacheRes || fetch(evt.request);
