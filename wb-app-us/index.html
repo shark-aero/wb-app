@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SHARK.AERO W&B US LSA</title>
+
+    <!-- materialize icons, css & js -->
+    <link type="text/css" href="./css/nouislider.min.css" rel="stylesheet">
+    <link type="text/css" href="./css/styles.css" rel="stylesheet">
+    <link rel="manifest" href="./manifest.json">
+
+    <!-- ios support -->
+    <link rel="apple-touch-icon" href="./img/icons/icon-128x128.png">
+    <meta name="apple-mobile-web-app-status-bar" content="#f5f5f5">
+    <meta name="theme-color" content="#f44336">
+</head>
+
+<!-- Unit imperial vs metric management -->
+<script>
+    var unit = 'MET';
+    if (localStorage.getItem("Unit")) {
+        unit = localStorage.getItem("Unit");
+    } else {
+        // if not define, set metric
+        localStorage.setItem("Unit", unit);
+    }
+
+    const unit_weight_imp = "lbs";
+    const unit_volumes_imp = "gal";
+
+    window.onload = function() {
+        leverUnit = document.getElementById('lever-unit');
+        switchMetricLabel = document.getElementById('metric-label');
+        switchImperialLabel = document.getElementById('imperial-label');
+
+        if (unit == 'IMP') {
+            leverUnit.style.left = "16px";
+            switchMetricLabel.style.fontWeight = "normal";
+            switchMetricLabel.style.color = style.getPropertyValue('--third');
+            switchImperialLabel.style.fontWeight = "bold";
+            switchImperialLabel.style.color = "black";
+
+            document.getElementById('caution-text-max-occupant').innerHTML = "- Single occupant weight over 242 lbs";
+            document.getElementById('caution-text-pax').innerHTML = "- Total occupant weight over 441 lbs";
+            document.getElementById('caution-text-baggage').innerHTML = "- Baggage weight over 33 lbs with 2 occupants";
+            document.getElementById('caution-text-fuel').innerHTML = "- Fuel quantity over 26 US gal with 2 occupants";
+            document.getElementById('input-ballast').value = 13;
+
+            // weights
+            const collection_weight = document.getElementsByClassName('unit weight');
+            for (let i = 0; i < collection_weight.length; i++) {
+                collection_weight[i].innerHTML = unit_weight_imp;
+            }
+
+            // Volumes
+            const collection_volumes = document.getElementsByClassName('unit volumes');
+            for (let i = 0; i < collection_volumes.length; i++) {
+                collection_volumes[i].innerHTML = unit_volumes_imp;
+            }
+
+        } else {
+            leverUnit.style.left = "0px";
+            switchMetricLabel.style.fontWeight = "bold";
+            switchMetricLabel.style.color = "black";
+            switchImperialLabel.style.fontWeight = "normal";
+            switchImperialLabel.style.color = style.getPropertyValue('--third');
+        };
+    };
+
+    buttonClick = function() {
+        if (unit == 'IMP') {
+            localStorage.setItem("Unit", 'MET');
+        } else {
+            localStorage.setItem("Unit", 'IMP');
+        }
+        window.location.reload()
+    }
+</script>
+
+
+<body>
+    <div class="content">
+
+        <!-- navbar -->
+        <nav>
+            <div class="logo">
+                <div class="company-name">SHARK.AERO</div>
+                <img src="./img/logo_shark.svg" height="42" alt="logo shark">
+            </div>
+            <div class="main-title">Weight and balance</div>
+            <a href="./about.html" class="about">About</a>
+        </nav>
+
+        <!-- certification -->
+        <div class="certification noselect">
+            <!-- <img src="./img/Flag_of_the_United_States.svg" alt="Flag_of_the_United_States" height="16"> -->
+            <div>TEST</div>
+        </div>
+
+        <!-- updatebar -->
+        <a id="updatebar" class="noselect" style="display: none;">New version: click here to update</a>
+
+        <!-- <div class="container container-unit"> -->
+        <div class="container sections noselect">
+
+            <img class="icons row-unit" src="./img/google-icons/straighten_24px.svg" alt="icon seat">
+            <div class="title row-unit">Units</div>
+            <div class="switch switch-unit row-unit noselect">
+                <span id="metric-label" style="justify-self: end; font-weight: bold; color: black;">kg, L</span>
+                <label onclick="buttonClick()">
+                    <span class="lever-holder"></span>
+                    <span class="lever-unit" id="lever-unit"></span>
+                </label>
+                <span id="imperial-label">lbs, US gal</span>
+            </div>
+
+            <!-- Empty weight and moment -->
+            <img src="./img/google-icons/airplanemode_active-24px.svg" class="icons row-user-selection" alt="icon airplane">
+            <div class="user-section row-user-selection">
+                <div>
+                    <div>Empty weight</div>
+                    <input class="user-input input" type="number" id="input-empty-weight" min="0" max="999">
+                    <div class="unit weight">kg</div>
+                </div>
+                <div>
+                    <div>Empty CG</div>
+                    <input class="user-input input" type="number" id="input-start-cg" step=0.01 min="0" max="99">
+                    <div class="unit">%</div>
+                </div>
+            </div>
+
+            <!-- Pilot -->
+            <img class="icons" src="./img/google-icons/airline_seat_recline_extra-24px.svg" alt="icon seat">
+            <div class="title">Pilot</div>
+            <div class="slider">
+                <div id="slider-pilot"></div>
+            </div>
+            <input class="input" type="number" id="input-pilot">
+            <div class="unit weight">kg</div>
+            <div class="spacer"></div>
+
+            <!-- Passenger -->
+            <div class="icons">
+                <img src="./img/google-icons/airline_seat_recline_extra-24px.svg" id="icon-pax" alt="icon seat">
+            </div>
+            <div class="title">Passenger</div>
+            <div class="slider">
+                <div id="slider-passenger"></div>
+            </div>
+            <input class="input" type="number" id="input-passenger">
+            <div class="unit weight">kg</div>
+            <div class="spacer"></div>
+
+            <!-- Baggage -->
+            <div class="icons">
+                <img src="./img/google-icons/luggage-24px.svg" id="icon-baggage" alt="icon baggage">
+            </div>
+            <div class="title">Baggage</div>
+            <div class="slider">
+                <div id="slider-baggage"></div>
+                <div id="limiter-box-baggage"></div>
+            </div>
+            <input class="input" type="number" id="input-baggage">
+            <div class="unit weight">kg</div>
+            <div class="spacer"></div>
+
+            <!-- Fuel -->
+            <div class="icons">
+                <img src="./img/google-icons/local_gas_station-24px.svg" id="icon-fuel" alt="icon fuel">
+            </div>
+            <div class="title">Fuel</div>
+            <div class="slider">
+                <div id="slider-fuel"></div>
+                <div id="limiter-box-fuel"></div>
+            </div>
+            <input class="input" type="number" id="input-fuel">
+            <div class="unit volumes">L</div>
+            <div class="spacer"></div>
+
+            <!-- Switch ballast -->
+            <img src="./img/google-icons/ballast-24px.svg" class="icons row-ballast" alt="icon ballast">
+            <div class="title row-ballast">Movable Ballast</div>
+            <div class="switch noselect row-ballast">
+                <span id="front-label-ballast" style="justify-self: end;">Front</span>
+                <label for="switch-ballast">
+                    <input type="checkbox" id="switch-ballast" checked>
+                    <span class="lever"></span>
+                </label>
+                <span id="rear-label-ballast" style="font-weight: bold; color: black;">Rear</span>
+            </div>
+            <input class="input row-ballast" type="number" value="6" id="input-ballast" disabled>
+            <div class="unit row-ballast">kg</div>
+        </div>
+
+        <!-- caution -->
+        <div class="container cautions noselect" id="caution">
+            <div class="caution-title">
+                <div>CAUTION</div>
+                <img src="./img/google-icons/caution.svg" alt="icon caution">
+            </div>
+            <div class="caution-messages">
+                <div class="caution-message" id="caution-text-max-occupant">- Single occupant weight over 110kg</div>
+                <div class="caution-message" id="caution-text-pax">- Total occupant weight over 200kg</div>
+                <div class="caution-message" id="caution-text-baggage">- Baggage weight over 15kg with 2 occupants</div>
+                <div class="caution-message" id="caution-text-fuel">- Fuel quantity over 100L with 2 occupants</div>
+            </div>
+        </div>
+
+        <!-- Result section -->
+        <div class="noselect" id="figure_area">
+            <div class="warnings" id="warning-text">
+                <div class="warning-title">WARNING</div>
+                <img src="./img/google-icons/warning.svg" alt="icon warning">
+                <div class="warning-message">OUT OF CG ENVELOPE</div>
+            </div>
+        </div>
+
+
+        <!-- text output -->
+        <div class="container text-output">
+            <div class="column">
+                <div class="rows">
+                    <div style="visibility: hidden;">//</div>
+                    <div>Take-off</div>
+                    <div>Zero-fuel</div>
+                    <div>Fuel</div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="rows">
+                    <div>Weight</div>
+                    <div id="weightTO-output"></div>
+                    <div id="weightZF-output"></div>
+                    <div id="fuel-output"></div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="rows">
+                    <div>CG</div>
+                    <div id="centerageTO-output"></div>
+                    <div id="centerageZF-output"></div>
+                    <div style="visibility: hidden;">//</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- footer -->
+    <div class="footer noselect">
+        <div>version 3.0.0 / W_061 Rev.B</div>
+        <!-- <div>  All content copyright shark.aero, all rights reserved.</div> -->
+        <div id='copyright'>Copyright &copy shark.aero, all rights reserved.</div>
+    </div>
+
+    <!-- year copyright -->
+    <script>
+        n = new Date();
+        y = n.getFullYear();
+        document.getElementById('copyright').innerHTML = 'Copyright &copy ' + y + ' shark.aero, all rights reserved.';
+    </script>
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="./js/vendor/d3.v6.min.js"></script>
+    <script src="./js/vendor/nouislider.min.js"></script>
+
+    <!-- <script src="./js/app.js"></script> -->
+    <script src="./js/main.js"></script>
+    <!-- <script src="./js/ui.js"></script>
+    <script src="./js/graph.js"></script> -->
+
+</body>
+
+</html>
