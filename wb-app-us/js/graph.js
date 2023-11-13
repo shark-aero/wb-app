@@ -210,8 +210,10 @@ var idIconBaggage = document.getElementById('icon-baggage');
 var idIconFuel = document.getElementById('icon-fuel');
 
 // id limiter boxes
-var idLimiterBoxBaggage = document.getElementById('limiter-box-baggage');
-var idLimiterBoxFuel = document.getElementById('limiter-box-fuel');
+var limiterBoxPilot = document.getElementById('limiter-box-pilot');
+var limiterBoxPassenger = document.getElementById('limiter-box-passenger');
+var limiterBoxBaggage = document.getElementById('limiter-box-baggage');
+var limiterBoxFuel = document.getElementById('limiter-box-fuel');
 
 // id warings
 var idWarningText = document.getElementById('warning-text');
@@ -342,6 +344,30 @@ function updateFigure() {
     } else {
         limiterBoxBaggage.style.width = '0%'
         limiterBoxFuel.style.width = '0%'
+    }
+
+    if (pilotWeight > 110) {
+        limiterBoxPilot.style.background = '#ff000059'
+    } else {
+        limiterBoxPilot.style.background = 'var(--third)'
+    }
+
+    if (passengerWeight > 110) {
+        limiterBoxPassenger.style.background = '#ff000059'
+    } else {
+        limiterBoxPassenger.style.background = 'var(--third)'
+    }
+
+    if (baggageWeight > 15) {
+        limiterBoxBaggage.style.background = '#ff000059'
+    } else {
+        limiterBoxBaggage.style.background = 'var(--third)'
+    }
+
+    if (fuelVolume > 100) {
+        limiterBoxFuel.style.background = '#ff000059'
+    } else {
+        limiterBoxFuel.style.background = 'var(--third)'
     }
 
     // WARNINGS

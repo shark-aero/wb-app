@@ -28,8 +28,8 @@ var sliderPilot = document.getElementById('slider-pilot');
 var sliderPassenger = document.getElementById('slider-passenger');
 var sliderBaggage = document.getElementById('slider-baggage');
 
-var limiterBoxBaggage = document.getElementById('limiter-box-baggage');
-var limiterBoxFuel = document.getElementById('limiter-box-fuel');
+// var limiterBoxBaggage = document.getElementById('limiter-box-baggage');
+// var limiterBoxFuel = document.getElementById('limiter-box-fuel');
 
 // switch
 // 1 front / 0 rear

@@ -146,7 +146,7 @@ noUiSlider.create(sliderFuel, {
     start: [inputFuel.value],
     connect: true,
     behaviour: 'snap',
-    step: 1,
+    step: 0.1,
     range: {
         'min': 0,
         'max': fuelQuantityDefault
@@ -219,7 +219,8 @@ sliderBaggage.noUiSlider.on('update', function(values, handle) {
 // FUEL
 sliderFuel.noUiSlider.on('update', function(values, handle) {
     var value = values[handle];
-    inputFuel.value = Math.round(value);
+    console.log(value)
+    inputFuel.value = Math.round(value * 10) / 10;
     localStorage.setItem("FuelVolume", value / literToGalUS);
     updateFigure();
 });

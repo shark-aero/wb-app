@@ -380,10 +380,9 @@ input[type=checkbox]:checked:not(:disabled)~.lever:active::before {
 
 
 /* Limiters box on slider */
-#limiter-box-baggage {
+.limiter {
     background: var(--third);
     height: 0.65rem;
-    width: 0%;
     transition: width 0.2s;
     float: right;
     position: absolute;
@@ -392,17 +391,14 @@ input[type=checkbox]:checked:not(:disabled)~.lever:active::before {
     right: 0;
 }
 
-#limiter-box-fuel {
-    background: var(--third);
-    height: 0.65rem;
-    width: 0%;
-    transition: width 0.2s;
-    float: right;
-    position: absolute;
-    border-radius: 3px;
-    top: 0.05rem;
-    right: 0;
+#limiter-box-pilot {
+    width: 26.666%;
 }
+
+#limiter-box-passenger {
+    width: 15.3846%;
+}
+
 
 .noUi-horizontal {
     height: 0.75rem;
