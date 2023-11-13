@@ -278,7 +278,6 @@ function updateFigure() {
         maximumFractionDigits: 1,
     }) + " %";
     idWeightFuel.innerHTML = fuelWeight.toFixed(0) + " kg";
-    console.log(centerageZF);
 
     dataResult = [{
             x: centerageZF * 100,
