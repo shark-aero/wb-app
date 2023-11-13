@@ -10,8 +10,8 @@ js_ui.type = "text/javascript";
 
 // TODO call it imperial
 if (unit == 'IMP') {
-    js_ui.src = "js/ui_us.js";
-    js_graph.src = "js/graph_us.js";
+    js_ui.src = "js/ui_imp.js";
+    js_graph.src = "js/graph_imp.js";
     console.log('Load imperial version')
 } else {
     js_ui.src = "js/ui.js";

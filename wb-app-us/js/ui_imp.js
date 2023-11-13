@@ -219,7 +219,6 @@ sliderBaggage.noUiSlider.on('update', function(values, handle) {
 // FUEL
 sliderFuel.noUiSlider.on('update', function(values, handle) {
     var value = values[handle];
-    console.log(value)
     inputFuel.value = Math.round(value * 10) / 10;
     localStorage.setItem("FuelVolume", value / literToGalUS);
     updateFigure();

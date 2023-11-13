@@ -282,10 +282,10 @@ nav a {
     .user-section {
         grid-template-columns: max-content max-content max-content max-content;
         grid-template-rows: auto;
-        column-gap: 0px;
-        /* row-gap: 10px; */
-        padding-bottom: 20px;
-        padding-top: 10px;
+        /* column-gap: 0px;
+        row-gap: 10px; */
+        padding-bottom: 15px;
+        padding-top: 15px;
     }
 }
 
@@ -330,7 +330,7 @@ nav a {
 /* size of inputs for mobiles */
 @media (pointer:coarse) {
     .input {
-        width: 3ch;
+        width: 4ch;
     }
 
     #input-start-cg {
@@ -440,6 +440,10 @@ input[type=checkbox]:checked:not(:disabled)~.lever:active::before {
     cursor: pointer;
     display: flex;
     margin: auto;
+}
+
+.switch span {
+    color: var(--third);
 }
 
 .switch label input[type=checkbox]:checked+.lever:before,

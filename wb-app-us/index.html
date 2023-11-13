@@ -37,17 +37,12 @@
         switchImperialLabel = document.getElementById('imperial-label');
 
         if (unit == 'IMP') {
+            leverUnit.style.visibility = "visible";
             leverUnit.style.left = "16px";
             switchMetricLabel.style.fontWeight = "normal";
             switchMetricLabel.style.color = style.getPropertyValue('--third');
             switchImperialLabel.style.fontWeight = "bold";
             switchImperialLabel.style.color = "black";
-
-            document.getElementById('caution-text-max-occupant').innerHTML = "- Single occupant weight over 242 lbs";
-            document.getElementById('caution-text-pax').innerHTML = "- Total occupant weight over 441 lbs";
-            document.getElementById('caution-text-baggage').innerHTML = "- Baggage weight over 33 lbs with 2 occupants";
-            document.getElementById('caution-text-fuel').innerHTML = "- Fuel quantity over 26 US gal with 2 occupants";
-            document.getElementById('input-ballast').value = 13;
 
             // weights
             const collection_weight = document.getElementsByClassName('unit weight');
@@ -61,7 +56,16 @@
                 collection_volumes[i].innerHTML = unit_volumes_imp;
             }
 
+            // Change caution messages
+            document.getElementById('caution-text-max-occupant').innerHTML = "- Single occupant weight over 242 lbs";
+            document.getElementById('caution-text-pax').innerHTML = "- Total occupant weight over 441 lbs";
+            document.getElementById('caution-text-baggage').innerHTML = "- Baggage weight over 33 lbs with 2 occupants";
+            document.getElementById('caution-text-fuel').innerHTML = "- Fuel quantity over 26 US gal with 2 occupants";
+            document.getElementById('input-ballast').value = 13;
+            document.getElementById('input-fuel').step = 0.1;
+
         } else {
+            leverUnit.style.visibility = "visible";
             leverUnit.style.left = "0px";
             switchMetricLabel.style.fontWeight = "bold";
             switchMetricLabel.style.color = "black";
@@ -109,10 +113,10 @@
             <img class="icons row-unit" src="./img/google-icons/straighten_24px.svg" alt="icon seat">
             <div class="title row-unit">Units</div>
             <div class="switch switch-unit row-unit noselect">
-                <span id="metric-label" style="justify-self: end; font-weight: bold; color: black;">kg, L</span>
+                <span id="metric-label" style="justify-self: end">kg, L</span>
                 <label onclick="buttonClick()">
                     <span class="lever-holder"></span>
-                    <span class="lever-unit" id="lever-unit"></span>
+                    <span class="lever-unit" id="lever-unit" style="visibility: hidden;"></span>
                 </label>
                 <span id="imperial-label">lbs, US gal</span>
             </div>
@@ -178,7 +182,7 @@
                 <div id="slider-fuel"></div>
                 <div class="limiter" id="limiter-box-fuel"></div>
             </div>
-            <input class="input" type="number" id="input-fuel" step="0.1">
+            <input class="input" type="number" id="input-fuel">
             <div class="unit volumes">L</div>
             <div class="spacer"></div>
 
