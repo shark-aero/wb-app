@@ -268,10 +268,17 @@ function updateFigure() {
 
     // Text output
     idWeightOutputTO.innerHTML = weightTO.toFixed(0) + " kg";
-    idCenterageOutputTO.innerHTML = (centerageTO * 100).toFixed(1) + " %";
+    idCenterageOutputTO.innerHTML = (centerageTO * 100).toLocaleString(undefined, {
+        minimumFractionDigits: 1,
+        maximumFractionDigits: 1,
+    }) + " %";
     idWeightOutputZF.innerHTML = weightZF.toFixed(0) + " kg";
-    idCenterageOutputZF.innerHTML = (centerageZF * 100).toFixed(1) + " %";
+    idCenterageOutputZF.innerHTML = (centerageZF * 100).toLocaleString(undefined, {
+        minimumFractionDigits: 1,
+        maximumFractionDigits: 1,
+    }) + " %";
     idWeightFuel.innerHTML = fuelWeight.toFixed(0) + " kg";
+    console.log(centerageZF);
 
     dataResult = [{
             x: centerageZF * 100,
