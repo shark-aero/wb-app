@@ -1,4 +1,15 @@
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- 
+if (unit == 'MET') {
+    var y_tick_spacing = 50
+    var y_tick_start = 350
+    var unit_name = 'kg'
+
+} else {
+    var y_tick_spacing = 100
+    var y_tick_start = 750
+    var unit_name = 'lbs'
+}
+
 // FIGURE
 var dataEnvelope = [{
         x: 17.5,
@@ -105,7 +116,7 @@ var y_scale = d3.scaleLinear()
     .domain([graph_domain.y_min, graph_domain.y_max])
     .range([figure_size.height - figure_size.y_margin, figure_size.y_margin]);
 
-var y_ticks = d3.range(350 * factor_weight, graph_domain.y_max + 1, 200);
+var y_ticks = d3.range(y_tick_start, graph_domain.y_max + 1, y_tick_spacing);
 var y_axis = d3.axisLeft()
     .scale(y_scale)
     .tickValues(y_ticks);
@@ -121,7 +132,7 @@ svg
     .attr("x", -figure_size.x_margin + 10)
     .attr("y", figure_size.y_margin + 16)
     .attr("dy", ".75em")
-    .text("Weight (lbs)");
+    .text("Weight (" + unit_name + ")");
 
 // Add envelope
 var pathEnvelope = svg.append("path")
@@ -267,17 +278,17 @@ function updateFigure() {
     var centerageZF = (armZF - refmac) / mac;
 
     // Text output
-    idWeightOutputTO.innerHTML = (weightTO * factor_weight).toFixed(0) + " lbs";
+    idWeightOutputTO.innerHTML = (weightTO * factor_weight).toFixed(0) + " " + unit_name;
     idCenterageOutputTO.innerHTML = (centerageTO * 100).toLocaleString(undefined, {
         minimumFractionDigits: 1,
         maximumFractionDigits: 1,
     }) + " %";
-    idWeightOutputZF.innerHTML = (weightZF * factor_weight).toFixed(0) + " lbs";
+    idWeightOutputZF.innerHTML = (weightZF * factor_weight).toFixed(0) + " " + unit_name;
     idCenterageOutputZF.innerHTML = (centerageZF * 100).toLocaleString(undefined, {
         minimumFractionDigits: 1,
         maximumFractionDigits: 1,
     }) + " %";
-    idWeightFuel.innerHTML = (fuelWeight * factor_weight).toFixed(0) + " lbs";
+    idWeightFuel.innerHTML = (fuelWeight * factor_weight).toFixed(0) + " " + unit_name;
 
     dataResult = [{
             x: centerageZF * 100,
@@ -304,9 +315,8 @@ function updateFigure() {
 
     // adjust y axis scale
     var ytop = d3.max([graph_domain.y_max, dataResult[1].y]);
-
     y_scale.domain([graph_domain.y_min, ytop]);
-    var y_ticks = d3.range(750, ytop + 1, 100);
+    var y_ticks = d3.range(y_tick_start, ytop + 1, y_tick_spacing);
     y_axis
         .scale(y_scale)
         .tickValues(y_ticks);

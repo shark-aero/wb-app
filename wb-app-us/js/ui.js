@@ -110,7 +110,7 @@ noUiSlider.create(sliderPilot, {
     behaviour: 'snap',
     step: 1,
     range: {
-        'min': 55 * factor_weight,
+        'min': Math.round(55 * factor_weight),
         'max': occupantMaxWeight
     },
 
