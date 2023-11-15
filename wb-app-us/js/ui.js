@@ -1,16 +1,24 @@
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- 
-// VAR
 
-var emptyWeight = 330;
+if (unit == 'MET') {
+    var factor_weight = 1;
+    var factor_volume = 1;
+} else {
+    // imperial unit correct
+    var factor_weight = 1 / 0.45359237; //2.2046226218487757
+    var factor_volume = 1 / 3.785411784; //0.26417205235814845
+}
+
+var emptyWeight = 330 * factor_weight;
 var startCG = 15.0;
-var fuelQuantityDefault = 150;
-var pilotWeightDefault = 75;
-var passengerWeightDefault = 0;
-var baggageWeightDefault = 0;
+var fuelQuantityDefault = 150 * factor_volume;
+var pilotWeightDefault = 0 * factor_weight;
+var passengerWeightDefault = 0 * factor_weight;
+var baggageWeightDefault = 0 * factor_weight;
 
-var paxMaxWeight = 200;
-var occupantMaxWeight = 130;
-var twoOccupantWeight = 25;
+var paxMaxWeight = 200 * factor_weight;
+var occupantMaxWeight = 130 * factor_weight;
+var twoOccupantWeight = 25 * factor_weight;
 
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- 
 // GET ID
@@ -44,32 +52,56 @@ var switchRearLabel = document.getElementById("rear-label-ballast")
 // IMPORT STORED INPUTS
 // Aircraft weight and cg
 if (localStorage.getItem("EmptyWeight") != null && localStorage.getItem("StartCG") != null) {
-    inputEmptyWeight.value = parseFloat(localStorage.getItem("EmptyWeight")).toFixed(0)
+    // inputEmptyWeight.value = localStorage.getItem("EmptyWeight") * factor_weight;
+    inputEmptyWeight.value = parseFloat(localStorage.getItem("EmptyWeight") * factor_weight).toFixed(0);
     inputStartCG.value = localStorage.getItem("StartCG");
 }
 
 // Pilot
 if (localStorage.getItem("PilotWeight")) {
-    inputPilot.value = localStorage.getItem("PilotWeight");
+    inputPilot.value = localStorage.getItem("PilotWeight") * factor_weight;
 }
 
 // Passenger
 if (localStorage.getItem("PassengerWeight")) {
-    inputPassenger.value = localStorage.getItem("PassengerWeight");
+    inputPassenger.value = localStorage.getItem("PassengerWeight") * factor_weight;
 }
 
 // Baggage
 if (localStorage.getItem("BaggageWeight")) {
-    inputBaggage.value = localStorage.getItem("BaggageWeight");
+    inputBaggage.value = localStorage.getItem("BaggageWeight") * factor_weight;
 }
 
 // Fuel
 if (localStorage.getItem("FuelVolume")) {
-    inputFuel.value = localStorage.getItem("FuelVolume");
+    inputFuel.value = localStorage.getItem("FuelVolume") * factor_volume;
 }
 
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- 
 // CREATE SLIDERS
+
+// pips
+
+if (unit == 'MET') {
+    var pips_pilot = [60, 70, 80, 90, 100, 110, 120, 130];
+    var pips_passenger = [0, 20, 40, 60, 80, 100, 120];
+    var pips_baggage = [0, 5, 10, 15, 20, 25];
+    var pips_fuel = [0, 30, 60, 90, 120, 150];
+    var density_pips_pilot = 6;
+    var density_pips_passenger = 4;
+    var density_pips_baggage = 4;
+    var density_pips_fuel = 7;
+} else {
+    var pips_pilot = [140, 160, 180, 200, 220, 240, 260, 280];
+    var pips_passenger = [0, 50, 100, 150, 200, 250];
+    var pips_baggage = [0, 10, 20, 30, 40, 50];
+    var pips_fuel = [0, 5, 10, 15, 20, 25, 30, 35, 40];
+    var density_pips_pilot = 6;
+    var density_pips_passenger = 3.5;
+    var density_pips_baggage = 8;
+    var density_pips_fuel = 2.5;
+}
+
 
 // PILOT 
 noUiSlider.create(sliderPilot, {
@@ -78,15 +110,15 @@ noUiSlider.create(sliderPilot, {
     behaviour: 'snap',
     step: 1,
     range: {
-        'min': 55,
+        'min': 55 * factor_weight,
         'max': occupantMaxWeight
     },
 
     pips: {
         // mode: 'range',
         mode: 'values',
-        values: [60, 70, 80, 90, 100, 110, 120, 130],
-        density: 6,
+        values: pips_pilot,
+        density: density_pips_pilot,
     },
 });
 
@@ -103,8 +135,8 @@ noUiSlider.create(sliderPassenger, {
     pips: {
         // mode: 'range',
         mode: 'values',
-        values: [0, 20, 40, 60, 80, 100, 120],
-        density: 4,
+        values: pips_passenger,
+        density: density_pips_passenger,
     },
 });
 
@@ -116,13 +148,13 @@ noUiSlider.create(sliderBaggage, {
     step: 1,
     range: {
         'min': 0,
-        'max': 25
+        'max': 25 * factor_weight
     },
     pips: {
         // mode: 'range',
         mode: 'values',
-        values: [0, 5, 10, 15, 20, 25],
-        density: 4,
+        values: pips_baggage,
+        density: density_pips_baggage,
     },
 });
 
@@ -132,7 +164,7 @@ noUiSlider.create(sliderFuel, {
     start: [inputFuel.value],
     connect: true,
     behaviour: 'snap',
-    step: 1,
+    step: 0.1,
     range: {
         'min': 0,
         'max': fuelQuantityDefault
@@ -140,8 +172,8 @@ noUiSlider.create(sliderFuel, {
     pips: {
         // mode: 'range',
         mode: 'values',
-        values: [0, 30, 60, 90, 120, 150],
-        density: 7,
+        values: pips_fuel,
+        density: density_pips_fuel,
     },
 });
 
@@ -157,7 +189,7 @@ function updateFigure() {
 sliderPilot.noUiSlider.on('update', function(values, handle) {
     var value = values[handle];
     inputPilot.value = Math.round(value);
-    localStorage.setItem("PilotWeight", value);
+    localStorage.setItem("PilotWeight", value / factor_weight);
     updateFigure()
 });
 
@@ -166,7 +198,7 @@ sliderPilot.noUiSlider.on('update', function(values, handle) {
 sliderPassenger.noUiSlider.on('update', function(values, handle) {
     var value = values[handle];
     inputPassenger.value = Math.round(value);
-    localStorage.setItem("PassengerWeight", value);
+    localStorage.setItem("PassengerWeight", value / factor_weight);
     // if two occupants
     if (value > twoOccupantWeight) {
         // move ballast to front
@@ -198,15 +230,15 @@ sliderPassenger.noUiSlider.on('update', function(values, handle) {
 sliderBaggage.noUiSlider.on('update', function(values, handle) {
     var value = values[handle];
     inputBaggage.value = Math.round(value);
-    localStorage.setItem("BaggageWeight", value);
+    localStorage.setItem("BaggageWeight", value / factor_weight);
     updateFigure()
 });
 
 // FUEL
 sliderFuel.noUiSlider.on('update', function(values, handle) {
     var value = values[handle];
-    inputFuel.value = Math.round(value);
-    localStorage.setItem("FuelVolume", value);
+    inputFuel.value = Math.round(value * 10) / 10;
+    localStorage.setItem("FuelVolume", value / factor_volume);
     updateFigure();
 });
 
@@ -215,9 +247,8 @@ sliderFuel.noUiSlider.on('update', function(values, handle) {
 // ON UPDATE INPUTS
 // EMPTY WEIGHT
 inputEmptyWeight.addEventListener('change', function() {
-    // this.value = Math.min(this.value, 999)
-    this.value = parseFloat(Math.min(this.value, 999))
-    localStorage.setItem("EmptyWeight", this.value);
+    this.value = Math.min(this.value, 999)
+    localStorage.setItem("EmptyWeight", this.value / factor_weight);
     updateFigure();
 });
 

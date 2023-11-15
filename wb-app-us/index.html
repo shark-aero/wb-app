@@ -28,16 +28,6 @@
         localStorage.setItem("Unit", unit);
     }
 
-    // After window onload
-    console.log('main');
-    var head = document.getElementsByTagName('head')[0];
-
-    var js_graph = document.createElement("script");
-    var js_ui = document.createElement("script");
-
-    js_graph.type = "text/javascript";
-    js_ui.type = "text/javascript";
-
     window.onload = function() {
         leverUnit = document.getElementById('lever-unit');
         switchMetricLabel = document.getElementById('metric-label');
@@ -72,11 +62,6 @@
             document.getElementById('input-ballast').value = 13;
             document.getElementById('input-fuel').step = 0.1;
 
-            // load js
-            js_ui.src = "js/ui_imp.js";
-            js_graph.src = "js/graph_imp.js";
-            console.log('Load imperial version')
-
         } else {
             // switch layout
             leverUnit.style.visibility = "visible";
@@ -85,17 +70,7 @@
             switchMetricLabel.style.color = "black";
             // switchImperialLabel.style.fontWeight = "normal";
             // switchImperialLabel.style.color = style.getPropertyValue('--third');
-
-            // load js
-            js_ui.src = "js/ui.js";
-            js_graph.src = "js/graph.js";
-            console.log('Load metric version')
-
         };
-        head.appendChild(js_ui);
-        head.appendChild(js_graph);
-
-        console.log('end main')
     };
 
     // revert unit
@@ -107,7 +82,6 @@
         }
         window.location.reload()
     }
-    console.log('intro');
 </script>
 
 <body>
@@ -298,11 +272,8 @@
     <script src="./js/vendor/d3.v6.min.js"></script>
     <script src="./js/vendor/nouislider.min.js"></script>
 
-    <!-- <script src="./js/main.js"></script> -->
-
-    <!-- <script src="./js/app.js"></script> -->
-    <!-- <script src="./js/ui.js"></script>
-    <script src="./js/graph.js"></script> -->
+    <script src="./js/ui.js"></script>
+    <script src="./js/graph.js"></script>
 
 </body>
 

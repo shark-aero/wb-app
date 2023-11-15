@@ -2,28 +2,28 @@
 // FIGURE
 var dataEnvelope = [{
         x: 17.5,
-        y: 385
+        y: 385 * factor_weight
     }, {
         x: 17.7,
-        y: 490
+        y: 490 * factor_weight
     },
     {
         x: 22.9,
-        y: 600
+        y: 600 * factor_weight
     }, {
         x: 31.5,
-        y: 600
+        y: 600 * factor_weight
     },
     {
         x: 31.5,
-        y: 487
+        y: 487 * factor_weight
     }, {
         x: 27.7,
-        y: 425
+        y: 425 * factor_weight
     },
     {
         x: 17.5,
-        y: 385
+        y: 385 * factor_weight
     }
 ];
 
@@ -38,22 +38,22 @@ var pt_N = dataEnvelope[5];
 // default config
 var dataResult = [{
     x: 20,
-    y: 400
+    y: 400 * factor_weight
 }, {
     x: 26,
-    y: 500
+    y: 500 * factor_weight
 }, ];
 
 // default empty
 var dataEmpty = {
     x: 14.5,
-    y: 300
+    y: 300 * factor_weight
 };
 const graph_domain = {
     x_min: 14,
     x_max: 33,
-    y_min: 324,
-    y_max: 650
+    y_min: 324 * factor_weight,
+    y_max: 650 * factor_weight
 };
 const figure_size = {
     height: 350,
@@ -105,7 +105,7 @@ var y_scale = d3.scaleLinear()
     .domain([graph_domain.y_min, graph_domain.y_max])
     .range([figure_size.height - figure_size.y_margin, figure_size.y_margin]);
 
-var y_ticks = d3.range(350, graph_domain.y_max + 1, 50);
+var y_ticks = d3.range(350 * factor_weight, graph_domain.y_max + 1, 200);
 var y_axis = d3.axisLeft()
     .scale(y_scale)
     .tickValues(y_ticks);
@@ -121,7 +121,7 @@ svg
     .attr("x", -figure_size.x_margin + 10)
     .attr("y", figure_size.y_margin + 16)
     .attr("dy", ".75em")
-    .text("Weight (kg)");
+    .text("Weight (lbs)");
 
 // Add envelope
 var pathEnvelope = svg.append("path")
@@ -191,7 +191,7 @@ const refmac = 114; //mm
 const mac = 1237; //mm
 
 // arm pilot linear
-var coef_a = ((armPilotHeavy - armPilotLight) / (110 - 55));
+var coef_a = ((armPilotHeavy - armPilotLight) / ((110 - 55)));
 var coef_b = (armPilotLight - coef_a * 55);
 
 // id text output
@@ -230,12 +230,12 @@ var idCautionTextFuel = document.getElementById('caution-text-fuel');
 
 function updateFigure() {
     // get weights
-    var emptyWeight = parseFloat(inputEmptyWeight.value);
-    var fuelVolume = parseFloat(inputFuel.value);
+    var emptyWeight = parseFloat(inputEmptyWeight.value) / factor_weight;
+    var fuelVolume = parseFloat(inputFuel.value) / factor_volume;
     var fuelWeight = fuelVolume * 0.72;
-    var pilotWeight = parseFloat(inputPilot.value);
-    var passengerWeight = parseFloat(inputPassenger.value);
-    var baggageWeight = parseFloat(inputBaggage.value);
+    var pilotWeight = parseFloat(inputPilot.value) / factor_weight;
+    var passengerWeight = parseFloat(inputPassenger.value) / factor_weight;
+    var baggageWeight = parseFloat(inputBaggage.value) / factor_weight;
 
     // empty / start moment
     var startMoment = (parseFloat(inputStartCG.value) / 100 * mac + refmac) * emptyWeight
@@ -267,31 +267,30 @@ function updateFigure() {
     var centerageZF = (armZF - refmac) / mac;
 
     // Text output
-    idWeightOutputTO.innerHTML = weightTO.toFixed(0) + " kg";
+    idWeightOutputTO.innerHTML = (weightTO * factor_weight).toFixed(0) + " lbs";
     idCenterageOutputTO.innerHTML = (centerageTO * 100).toLocaleString(undefined, {
         minimumFractionDigits: 1,
         maximumFractionDigits: 1,
     }) + " %";
-    idWeightOutputZF.innerHTML = weightZF.toFixed(0) + " kg";
+    idWeightOutputZF.innerHTML = (weightZF * factor_weight).toFixed(0) + " lbs";
     idCenterageOutputZF.innerHTML = (centerageZF * 100).toLocaleString(undefined, {
         minimumFractionDigits: 1,
         maximumFractionDigits: 1,
     }) + " %";
-    idWeightFuel.innerHTML = fuelWeight.toFixed(0) + " kg";
+    idWeightFuel.innerHTML = (fuelWeight * factor_weight).toFixed(0) + " lbs";
 
     dataResult = [{
             x: centerageZF * 100,
-            y: weightZF
+            y: weightZF * factor_weight
         },
         {
             x: centerageTO * 100,
-            y: weightTO
+            y: weightTO * factor_weight
         }
     ];
-
     dataEmpty = {
         x: inputStartCG.value,
-        y: emptyWeight
+        y: emptyWeight * factor_weight
     };
 
     // adjust x axis scale
@@ -305,8 +304,9 @@ function updateFigure() {
 
     // adjust y axis scale
     var ytop = d3.max([graph_domain.y_max, dataResult[1].y]);
+
     y_scale.domain([graph_domain.y_min, ytop]);
-    var y_ticks = d3.range(350, ytop + 1, 50);
+    var y_ticks = d3.range(750, ytop + 1, 100);
     y_axis
         .scale(y_scale)
         .tickValues(y_ticks);
