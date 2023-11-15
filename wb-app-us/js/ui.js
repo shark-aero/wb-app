@@ -91,6 +91,7 @@ if (unit == 'MET') {
     var density_pips_passenger = 4;
     var density_pips_baggage = 4;
     var density_pips_fuel = 7;
+    var fuel_step = 1;
 } else {
     var pips_pilot = [140, 160, 180, 200, 220, 240, 260, 280];
     var pips_passenger = [0, 50, 100, 150, 200, 250];
@@ -100,6 +101,7 @@ if (unit == 'MET') {
     var density_pips_passenger = 3.5;
     var density_pips_baggage = 8;
     var density_pips_fuel = 2.5;
+    var fuel_step = 0.1;
 }
 
 
@@ -164,7 +166,7 @@ noUiSlider.create(sliderFuel, {
     start: [inputFuel.value],
     connect: true,
     behaviour: 'snap',
-    step: 0.1,
+    step: fuel_step,
     range: {
         'min': 0,
         'max': fuelQuantityDefault
