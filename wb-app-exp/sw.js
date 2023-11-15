@@ -1,4 +1,4 @@
-const staticCacheName = 'site-static-v2.11.0';
+const staticCacheName = 'site-static-v3.0.3';
 const assets = [
     './',
     './index.html',
@@ -18,6 +18,7 @@ const assets = [
     './img/google-icons/local_gas_station-24px.svg',
     './img/google-icons/airplanemode_active-24px.svg',
     './img/google-icons/luggage-24px.svg',
+    './img/google-icons/straighten_24px.svg',
 ];
 
 // install event
