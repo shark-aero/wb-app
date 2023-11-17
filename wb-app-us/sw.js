@@ -1,32 +1,30 @@
-const staticCacheName = 'site-static-v3.0.6';
+const staticCacheName = 'site-static-v3.0.6.13'; //
 const assets = [
     './',
-    './index.html',
-    './about.html',
-    './js/ui.js',
-    './js/app.js',
-    './js/graph.js',
-    './js/vendor/nouislider.min.js',
-    './js/vendor/d3.v6.min.js',
-    './css/styles.css',
-    './css/styles_about.css',
-    './css/nouislider.min.css',
-    './img/logo_shark.svg',
-    './img/Flag_of_Germany.svg',
-    './img/Flag_of_the_Czech_Republic.svg',
-    './img/google-icons/caution.svg',
-    './img/google-icons/warning.svg',
-    './img/google-icons/airline_seat_recline_extra-24px.svg',
-    './img/google-icons/local_gas_station-24px.svg',
-    './img/google-icons/airplanemode_active-24px.svg',
-    './img/google-icons/luggage-24px.svg',
-    './img/google-icons/ballast-24px.svg',
-    './img/google-icons/straighten_24px.svg',
+    'index.html',
+    'about.html',
+    'js/ui.js',
+    'js/app.js',
+    'js/graph.js',
+    'js/vendor/nouislider.min.js',
+    'js/vendor/d3.v6.min.js',
+    'css/styles.css',
+    'css/styles_about.css',
+    'css/nouislider.min.css',
+    'img/logo_shark.svg',
+    'img/google-icons/caution.svg',
+    'img/google-icons/warning.svg',
+    'img/google-icons/airline_seat_recline_extra-24px.svg',
+    'img/google-icons/local_gas_station-24px.svg',
+    'img/google-icons/airplanemode_active-24px.svg',
+    'img/google-icons/luggage-24px.svg',
+    'img/google-icons/ballast-24px.svg',
+    'img/google-icons/straighten_24px.svg',
 ];
 
 // install event
 self.addEventListener('install', evt => {
-    console.log('service worker installed');
+    console.log(`service worker installed ${staticCacheName}`);
     evt.waitUntil(
         caches.open(staticCacheName).then((cache) => {
             console.log('caching shell assets');

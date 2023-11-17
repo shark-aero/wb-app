@@ -1,5 +1,5 @@
 // if ('serviceWorker' in navigator) {
-//     navigator.serviceWorker.register('./sw.js')
+//     navigator.serviceWorker.register('sw.js')
 //         .then(reg => console.log('service worker registered'))
 //         .catch(err => console.log('service worker not registered', err));
 // }
@@ -19,8 +19,9 @@ updatebar.addEventListener('click', function() {
 });
 
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js')
+    navigator.serviceWorker.register('sw.js')
         .then((reg) => {
+            console.log(reg)
             reg.addEventListener('updatefound', () => {
                 // console.log('update found')
                 // A new service worker has appeared
