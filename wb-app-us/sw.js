@@ -1,14 +1,11 @@
-const staticCacheName = 'site-static-v3.0.0';
+const staticCacheName = 'site-static-v3.0.6';
 const assets = [
     './',
     './index.html',
     './about.html',
     './js/ui.js',
-    './js/ui_us.js',
     './js/app.js',
-    './js/test.js',
     './js/graph.js',
-    './js/graph_us.js',
     './js/vendor/nouislider.min.js',
     './js/vendor/d3.v6.min.js',
     './css/styles.css',
@@ -24,6 +21,7 @@ const assets = [
     './img/google-icons/airplanemode_active-24px.svg',
     './img/google-icons/luggage-24px.svg',
     './img/google-icons/ballast-24px.svg',
+    './img/google-icons/straighten_24px.svg',
 ];
 
 // install event
