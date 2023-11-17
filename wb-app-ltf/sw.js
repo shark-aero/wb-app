@@ -1,4 +1,4 @@
-const staticCacheName = 'site-static-v3.0.6.1';
+const staticCacheName = 'site-static-v3.0.13';
 const assets = [
     './',
     './index.html',
@@ -26,7 +26,7 @@ const assets = [
 
 // install event
 self.addEventListener('install', evt => {
-    console.log('service worker installed');
+    console.log(`service worker installed ${staticCacheName}`);
     evt.waitUntil(
         caches.open(staticCacheName).then((cache) => {
             console.log('caching shell assets');
