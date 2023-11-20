@@ -21,6 +21,7 @@ updatebar.addEventListener('click', function() {
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./sw.js')
         .then((reg) => {
+            console.log(reg)
             reg.addEventListener('updatefound', () => {
                 // console.log('update found')
                 // A new service worker has appeared
