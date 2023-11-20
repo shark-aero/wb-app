@@ -1,4 +1,4 @@
-const staticCacheName = 'site-static-v3.0.18';
+const staticCacheName = 'site-static-v3.0.19';
 const assets = [
     './',
     './index.html',
@@ -24,14 +24,26 @@ const assets = [
     './img/google-icons/straighten_24px.svg',
 ];
 
+async function addAllBypassCache(cacheName, urls) {
+    const cache = await caches.open(cacheName);
+    const requests = urls.map((url) => new Request(url, {
+        // cache: 'no-store',
+        headers: {
+            'Cache-Control': 'max-age=40'
+        }
+    }));
+    await cache.addAll(requests);
+}
+
 // install event
 self.addEventListener('install', evt => {
     console.log(`service worker installed ${staticCacheName}`);
     evt.waitUntil(
-        caches.open(staticCacheName).then((cache) => {
-            console.log('caching shell assets');
-            cache.addAll(assets);
-        })
+        addAllBypassCache(staticCacheName, assets)
+        // caches.open(staticCacheName).then((cache) => {
+        //     console.log('caching shell assets');
+        //     cache.addAll(assets);
+        // })
     );
 });
 
