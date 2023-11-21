@@ -1,4 +1,4 @@
-const staticCacheName = 'site-static-v3.0.19';
+const staticCacheName = 'site-static-v3.0.20';
 const assets = [
     './',
     './index.html',
@@ -29,7 +29,7 @@ async function addAllBypassCache(cacheName, urls) {
     const requests = urls.map((url) => new Request(url, {
         // cache: 'no-store',
         headers: {
-            'Cache-Control': 'max-age=40'
+            'Cache-Control': 'max-age=180'
         }
     }));
     await cache.addAll(requests);
