@@ -1,4 +1,4 @@
 
-#<filesMatch "\.(json|ico|css|png|svg|js|html)$">
-#    Header set Cache-Control "max-age=0, no-cache"
-#</filesMatch>
+<filesMatch "\.(json|ico|css|png|svg|js|html)$">
+    Header set Cache-Control "max-age=0, no-cache"
+</filesMatch>
