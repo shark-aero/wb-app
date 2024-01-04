@@ -1,4 +1,4 @@
-const staticCacheName = 'site-static-v3.1.17';
+const staticCacheName = 'site-static-v3.1.18';
 const assets = [
     './',
     './index.html',
@@ -21,39 +21,39 @@ const assets = [
     './img/google-icons/straighten_24px.svg',
 ];
 
-// // original SW
-// // install event
-// self.addEventListener('install', evt => {
-//     console.log(`service worker installed ${staticCacheName}`);
-//     evt.waitUntil(
-//         caches.open(staticCacheName).then((cache) => {
-//             console.log('caching shell assets');
-//             cache.addAll(assets);
-//         })
-//     );
-// });
-
-// New SW
-// install sw 
+// original SW
+// install event
 self.addEventListener('install', evt => {
-    console.log('sw has been installed');
-
+    console.log(`service worker installed ${staticCacheName}`);
     evt.waitUntil(
-        // first delete all caches
-        caches.keys().then(keys => {
-            console.log('deleting all cache');
-            return Promise.all(keys
-                .map(key => caches.delete(key))
-            )
-        }).then(res => {
-            // then cache files
-            caches.open(staticCacheName).then((cache) => {
-                console.log('caching shell assets');
-                cache.addAll(assets);
-            })
+        caches.open(staticCacheName).then((cache) => {
+            console.log('caching shell assets');
+            cache.addAll(assets);
         })
-    )
+    );
 });
+
+// // New SW
+// // install sw 
+// self.addEventListener('install', evt => {
+//     console.log('sw has been installed');
+
+//     evt.waitUntil(
+//         // first delete all caches
+//         caches.keys().then(keys => {
+//             console.log('deleting all cache');
+//             return Promise.all(keys
+//                 .map(key => caches.delete(key))
+//             )
+//         }).then(res => {
+//             // then cache files
+//             caches.open(staticCacheName).then((cache) => {
+//                 console.log('caching shell assets');
+//                 cache.addAll(assets);
+//             })
+//         })
+//     )
+// });
 
 // activate event
 self.addEventListener('activate', evt => {

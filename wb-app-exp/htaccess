@@ -1,4 +1,5 @@
 
 <filesMatch "\.(json|ico|css|png|svg|js|html)$">
     Header set Cache-Control "max-age=0, no-cache"
+    Header set Pragma "no-cache"
 </filesMatch>
