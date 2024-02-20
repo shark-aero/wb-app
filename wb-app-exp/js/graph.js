@@ -219,7 +219,7 @@ var idIconFuel = document.getElementById('icon-fuel');
 // id limiter boxes
 var limiterBoxPilot = document.getElementById('limiter-box-pilot');
 var limiterBoxPassenger = document.getElementById('limiter-box-passenger');
-var limiterBoxBaggage = document.getElementById('limiter-box-baggage');
+// var limiterBoxBaggage = document.getElementById('limiter-box-baggage');
 var limiterBoxFuel = document.getElementById('limiter-box-fuel');
 
 // id warings
@@ -229,7 +229,7 @@ var idWarningText = document.getElementById('warning-text');
 var idCaution = document.getElementById('caution');
 var idCautionTextPax = document.getElementById('caution-text-pax');
 var idCautionTextMaxOccupant = document.getElementById('caution-text-max-occupant');
-var idCautionTextBaggage = document.getElementById('caution-text-baggage');
+// var idCautionTextBaggage = document.getElementById('caution-text-baggage');
 var idCautionTextFuel = document.getElementById('caution-text-fuel');
 
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- 
@@ -348,13 +348,13 @@ function updateFigure() {
 
     // Limiter boxes
     // If two occupants 
-    if (passengerWeight > 25) {
-        limiterBoxBaggage.style.width = '40%'
-        limiterBoxFuel.style.width = '33.3333%'
-    } else {
-        limiterBoxBaggage.style.width = '0%'
-        limiterBoxFuel.style.width = '0%'
-    }
+    // if (passengerWeight > 25) {
+    //     limiterBoxBaggage.style.width = '40%'
+    //     limiterBoxFuel.style.width = '33.3333%'
+    // } else {
+    //     limiterBoxBaggage.style.width = '0%'
+    //     limiterBoxFuel.style.width = '0%'
+    // }
 
     if (pilotWeight > 110) {
         limiterBoxPilot.style.background = '#ff000059'
@@ -368,11 +368,11 @@ function updateFigure() {
         limiterBoxPassenger.style.background = 'var(--third)'
     }
 
-    if (baggageWeight > 15) {
-        limiterBoxBaggage.style.background = '#ff000059'
-    } else {
-        limiterBoxBaggage.style.background = 'var(--third)'
-    }
+    // if (baggageWeight > 15) {
+    //     limiterBoxBaggage.style.background = '#ff000059'
+    // } else {
+    //     limiterBoxBaggage.style.background = 'var(--third)'
+    // }
 
     if (fuelVolume > 100) {
         limiterBoxFuel.style.background = '#ff000059'
@@ -396,11 +396,11 @@ function updateFigure() {
     var flagCaution = checkCautions(pilotWeight, passengerWeight, baggageWeight, fuelVolume);
 
     // if 2 occupants and baggage > 15kg
-    if (flagCaution[0]) {
-        idCautionTextBaggage.style.display = "block"
-    } else {
-        idCautionTextBaggage.style.display = "none"
-    }
+    // if (flagCaution[0]) {
+    //     idCautionTextBaggage.style.display = "block"
+    // } else {
+    //     idCautionTextBaggage.style.display = "none"
+    // }
 
     // if 2 occupants and fuel > 100L
     if (flagCaution[1]) {
@@ -495,9 +495,9 @@ function checkCautions(pilotWeight, passengerWeight, baggageWeight, fuelVolume) 
     var flagMaxOccupantsCaution = false;
 
     // flag baggage warning
-    if (passengerWeight > 25 && baggageWeight > 15) {
-        flagBaggageCaution = true;
-    }
+    // if (passengerWeight > 25 && baggageWeight > 15) {
+    //     flagBaggageCaution = true;
+    // }
 
     // flag fuel warning
     if (passengerWeight > 25 && fuelVolume > 100) {
