@@ -15,7 +15,7 @@ var dataEnvelope = [{
         x: 16.5,
         y: 385 * factor_weight
     }, {
-        x: 17.7,
+        x: 16.7,
         y: 490 * factor_weight
     },
     {
