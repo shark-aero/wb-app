@@ -12,11 +12,11 @@ if (unit == 'MET') {
 
 // FIGURE
 var dataEnvelope = [{
-        x: 16.5,
+        x: 17.5,
         y: 460 * factor_weight
     },
     {
-        x: 16.5,
+        x: 17.5,
         y: 550 * factor_weight
     },
     {
@@ -32,7 +32,7 @@ var dataEnvelope = [{
         y: 550 * factor_weight
     },
     {
-        x: 16.5,
+        x: 17.5,
         y: 460 * factor_weight
     },
 
@@ -61,7 +61,7 @@ var dataEmpty = {
     y: 300 * factor_weight
 };
 const graph_domain = {
-    x_min: 14,
+    x_min: 15,
     x_max: 33,
     y_min: 400 * factor_weight,
     y_max: 700 * factor_weight
