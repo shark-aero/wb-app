@@ -15,10 +15,10 @@ var dataEnvelope = [{
     x: 17.5,
     y: 430.4 * factor_weight // O
 }, {
-    x: 17.5,
-    y: 440.4 * factor_weight // P
+    x: 17.6,
+    y: 470.4 * factor_weight // P
 }, {
-    x: 23.8,
+    x: 23.7,
     y: 600.0 * factor_weight // K
 }, {
     x: 31.5,
@@ -27,12 +27,15 @@ var dataEnvelope = [{
     x: 31.5,
     y: 560.4 * factor_weight // M
 }, {
-    x: 24.5,
-    y: 455.4 * factor_weight // N
+    x: 28.2,
+    y: 470.0 * factor_weight // N
 }, {
     x: 17.5,
     y: 430.4 * factor_weight // O
 }];
+
+var dataEnvelopeTop = dataEnvelope.slice(0, 5)
+var dataEnvelopeBottom = dataEnvelope.slice(4)
 
 // Points
 var pt_O = dataEnvelope[0];
@@ -130,11 +133,27 @@ svg
     .attr("dy", ".75em")
     .text("Weight (" + unit_name + ")");
 
-// Add envelope
-var pathEnvelope = svg.append("path")
-    .datum(dataEnvelope)
+// Add envelope Top
+var pathEnvelopeTop = svg.append("path")
+    .datum(dataEnvelopeTop)
     .attr("fill", "none")
     .attr("stroke", "black")
+    .attr("stroke-width", 1.5)
+    .attr("d", d3.line()
+        .x(function(d) {
+            return x_scale(d.x)
+        })
+        .y(function(d) {
+            return y_scale(d.y)
+        })
+    );
+
+// Add envelope Bottom
+var pathEnvelopeBottom = svg.append("path")
+    .datum(dataEnvelopeBottom)
+    .attr("fill", "none")
+    .attr("stroke", "black")
+    .attr("stroke-dasharray", "4,4")
     .attr("stroke-width", 1.5)
     .attr("d", d3.line()
         .x(function(d) {
@@ -325,8 +344,8 @@ function updateFigure() {
     svg_y_axis.call(y_axis);
 
     // Update points, line and envelope
-    pathEnvelope
-        .datum(dataEnvelope)
+    pathEnvelopeTop
+        .datum(dataEnvelopeTop)
         .attr("d", d3.line()
             .x(function(d) {
                 return x_scale(d.x)
@@ -392,11 +411,17 @@ function updateFigure() {
     // Check Envelope
     var flagwarnings = checkWarnings(dataResult);
     if (flagwarnings) {
-        pathEnvelope.attr("stroke", "red")
+        pathEnvelopeTop.attr("stroke", "red")
+            .attr("stroke-width", 2.0)
+        idWarningText.style.display = "block"
+        pathEnvelopeBottom.attr("stroke", "red")
             .attr("stroke-width", 2.0)
         idWarningText.style.display = "block"
     } else {
-        pathEnvelope.attr("stroke", "black")
+        pathEnvelopeTop.attr("stroke", "black")
+            .attr("stroke-width", 1.5)
+        idWarningText.style.display = "none"
+        pathEnvelopeBottom.attr("stroke", "black")
             .attr("stroke-width", 1.5)
         idWarningText.style.display = "none"
     }
@@ -454,19 +479,20 @@ function checkEnvelope(weight, cg) {
         return false
     }
 
-    // check line NM
-    var a_MN = (pt_M.y - pt_N["y"]) / (pt_M.x - pt_N.x);
-    var b_MN = pt_N.y - pt_N.x * a_MN;
-    if (weight < cg * a_MN + b_MN) {
-        return false
-    }
+    // Don't check the bottom lines anymore
+    // // check line NM
+    // var a_MN = (pt_M.y - pt_N["y"]) / (pt_M.x - pt_N.x);
+    // var b_MN = pt_N.y - pt_N.x * a_MN;
+    // if (weight < cg * a_MN + b_MN) {
+    //     return false
+    // }
 
-    // check line NO
-    var a_NO = (pt_N.y - pt_O.y) / (pt_N.x - pt_O.x);
-    var b_NO = pt_O.y - pt_O.x * a_NO;
-    if (weight < cg * a_NO + b_NO) {
-        return false
-    }
+    // // check line NO
+    // var a_NO = (pt_N.y - pt_O.y) / (pt_N.x - pt_O.x);
+    // var b_NO = pt_O.y - pt_O.x * a_NO;
+    // if (weight < cg * a_NO + b_NO) {
+    //     return false
+    // }
 
     // check line OP
     var a_OP = (pt_O.y - pt_P.y) / (pt_O.x - pt_P.x);
