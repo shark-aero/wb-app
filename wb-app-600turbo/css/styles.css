@@ -395,6 +395,12 @@ input[type=checkbox]:checked:not(:disabled)~.lever:active::before {
     right: 0;
 }
 
+/* (60 - 55) / (130 - 55) */
+#limiter-box-pilot-small {
+    width: 6.666%;
+    left: 0;
+}
+
 #limiter-box-pilot {
     width: 26.666%;
 }
