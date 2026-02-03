@@ -354,6 +354,17 @@ function updateFigure() {
                 return y_scale(d.y)
             })
         );
+    // Update points, line and envelope
+    pathEnvelopeBottom
+        .datum(dataEnvelopeBottom)
+        .attr("d", d3.line()
+            .x(function(d) {
+                return x_scale(d.x)
+            })
+            .y(function(d) {
+                return y_scale(d.y)
+            })
+        );
 
     lineResult
         .attr('x1', x_scale(dataResult[0].x))
@@ -414,14 +425,8 @@ function updateFigure() {
         pathEnvelopeTop.attr("stroke", "red")
             .attr("stroke-width", 2.0)
         idWarningText.style.display = "block"
-        pathEnvelopeBottom.attr("stroke", "red")
-            .attr("stroke-width", 2.0)
-        idWarningText.style.display = "block"
     } else {
         pathEnvelopeTop.attr("stroke", "black")
-            .attr("stroke-width", 1.5)
-        idWarningText.style.display = "none"
-        pathEnvelopeBottom.attr("stroke", "black")
             .attr("stroke-width", 1.5)
         idWarningText.style.display = "none"
     }
@@ -501,12 +506,12 @@ function checkEnvelope(weight, cg) {
         return false
     }
 
-    // check line PK
-    var a_PK = (pt_P.y - pt_K.y) / (pt_P.x - pt_K.x);
-    var b_PK = pt_K.y - pt_K.x * a_PK;
-    if (weight > cg * a_PK + b_PK) {
-        return false
-    }
+    // // check line PK
+    // var a_PK = (pt_P.y - pt_K.y) / (pt_P.x - pt_K.x);
+    // var b_PK = pt_K.y - pt_K.x * a_PK;
+    // if (weight > cg * a_PK + b_PK) {
+    //     return false
+    // }
 
     return true
 }
