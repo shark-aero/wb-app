@@ -320,6 +320,15 @@ nav a {
         grid-row: 15;
     }
 
+    .row-oxygen {
+        grid-row: 18;
+    }
+
+    .row-oxygen.title,
+    .row-oxygen.icons {
+        grid-row: 17;
+    }
+
 
 }
 

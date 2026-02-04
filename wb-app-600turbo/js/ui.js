@@ -326,7 +326,7 @@ switchBallast.addEventListener('change', function() {
 // Oxygen
 style = getComputedStyle(document.body)
 switchOxygen.addEventListener('change', function() {
-    console.log(switchOxygenPosition);
+    // console.log(switchOxygenPosition);
     if (switchOxygen.checked) {
         switchOxygenPosition = 1;
         switchOxygenYesLabel.style.fontWeight = "bold";
