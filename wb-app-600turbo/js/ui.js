@@ -278,7 +278,7 @@ inputEmptyWeight.addEventListener('change', function() {
 
 // START MOMENT
 inputStartCG.addEventListener('change', function() {
-    this.value = parseFloat(Math.min(this.value, 99)).toFixed(2)
+    this.value = parseFloat(Math.min(this.value.replace(",", "."), 99)).toFixed(2)
     localStorage.setItem("StartCG", this.value);
     updateFigure();
 });
