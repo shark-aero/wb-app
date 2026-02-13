@@ -1,4 +1,4 @@
-const staticCacheName = 'site-static-v3.2.1';
+const staticCacheName = 'site-static-v3.3.0';
 const assets = [
     './',
     './index.html',
@@ -22,6 +22,9 @@ const assets = [
     './img/google-icons/luggage-24px.svg',
     './img/google-icons/ballast-24px.svg',
     './img/google-icons/straighten_24px.svg',
+    './img/google-icons/oxygen.svg',
+    './img/google-icons/mobile_arrow_down.svg',
+
 ];
 
 // original SW
@@ -54,7 +57,7 @@ self.addEventListener('install', evt => {
 //                 console.log('caching shell assets');
 //                 cache.addAll(assets);
 //             })
-//         })
+//         }) 
 //     )
 // });
 
@@ -90,4 +93,4 @@ self.addEventListener('message', function(event) {
     }
 });
 
-/////
+//
