@@ -66,27 +66,55 @@ nav a {
     transform: scaleY(1.25);
 }
 
-.logo {
+.logos {
     display: flex;
+    justify-self: start;
+    align-items: center;
+    gap: 0.5rem;
 }
 
-.logo>* {
+/* .logo>* {
     align-self: center;
-}
+} */
 
 .main-title {
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
-.about {
-    justify-self: right;
+.right-buttons {
+    display: flex;
+    justify-self: end;
+    align-items: center;
+    gap: 10px;
 }
+
+#button-install {
+    display: flex;
+    cursor: pointer;
+
+    border: 1px solid rgb(0, 0, 0);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 3px 1px -2px rgba(0, 0, 0, 0.18), 0 1px 5px 0 rgba(0, 0, 0, 0.25);
+
+    border-radius: 3px;
+    padding: 4px;
+    padding-right: 8px;
+    /* margin-top: 5px; */
+    /* box-shadow: 1px 0 1px #fff inset;
+    background-image: linear-gradient(to bottom, #cfcfcf 0%, #c0c0c0 100%);
+    border-radius: 4px; */
+}
+
 
 @media screen and (max-width: 600px) {
     .company-name {
         display: none;
     }
+
+    /* .text-install {
+        display: none;
+    } */
 }
 
 /* updatebar */
