@@ -19,6 +19,7 @@ const assets = [
     './img/google-icons/airplanemode_active-24px.svg',
     './img/google-icons/luggage-24px.svg',
     './img/google-icons/straighten_24px.svg',
+    './img/google-icons/mobile_arrow_down.svg',
 ];
 
 // original SW

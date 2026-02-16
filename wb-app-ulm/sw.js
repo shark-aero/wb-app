@@ -19,6 +19,7 @@ const assets = [
     './img/google-icons/local_gas_station-24px.svg',
     './img/google-icons/airplanemode_active-24px.svg',
     './img/google-icons/luggage-24px.svg',
+    './img/google-icons/mobile_arrow_down.svg',
 ];
 
 // install event
