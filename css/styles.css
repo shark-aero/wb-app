@@ -88,8 +88,8 @@ b {
     align-items: center;
     row-gap: 10px;
     column-gap: 10px;
-    width: 100%;
-    margin: auto;
+    /* width: 100%;
+    margin: auto; */
     background-color: lightgray;
     color: black;
     border: 1px solid grey;
