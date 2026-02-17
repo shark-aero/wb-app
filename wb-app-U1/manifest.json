@@ -1,5 +1,5 @@
 {
-    "name": "SHARK.AERO Weight and Balance EXP",
+    "name": "SHARK.AERO Weight and Balance U1",
     "short_name": "SHARK.AERO W&B EXP",
     "start_url": "./index.html",
     "display": "standalone",
@@ -41,5 +41,20 @@
             "type": "image/png",
             "sizes": "512x512"
         }
-    ]
+    ],
+    "screenshots": [{
+            "src": "./img/screenshot.png",
+            "sizes": "634x896",
+            "type": "image/png",
+            "form_factor": "wide",
+            "label": "wbapp-desktop"
+        },
+        {
+            "src": "./img/screenshot-mobile.png",
+            "sizes": "424x831",
+            "type": "image/png",
+            "label": "wbapp-mobile"
+        }
+    ],
+    "description": "SHARK.AERO Weight and Balance U1"
 }
